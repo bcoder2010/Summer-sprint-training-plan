@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sprint Training Plan — Summer 2025</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #e8ff00;
+    --accent2: #ff4d00;
+    --text: #f0f0f0;
+    --muted: #888;
+    --success: #00e676;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--text); }
+  .athlete-tag {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .save-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat {
+    background: var(--surface);
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .stat-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--accent);
+  }
+  .stat-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* NAV TABS */
+  .tab-nav {
+    display: flex;
+    overflow-x: auto;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* CONTENT */
+  .content { padding: 12px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* PHASE BADGE */
+  .phase-header {
+    background: linear-gradient(135deg, #1e1e1e, #252525);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .phase-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+  .phase-dates { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* WEEK SELECTOR */
+  .week-selector {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    scrollbar-width: none;
+  }
+  .week-selector::-webkit-scrollbar { display: none; }
+  .week-btn {
+    flex: 0 0 auto;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    background: var(--surface);
+    text-transform: uppercase;
+  }
+  .week-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(232,255,0,0.08); }
+
+  /* SESSION CARDS */
+  .session-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .session-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .session-day {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .session-day.gym { color: #4fc3f7; }
+  .session-day.track { color: var(--accent2); }
+  .session-day.rest { color: var(--muted); }
+  .session-type {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+  }
+  .session-toggle {
+    color: var(--muted);
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+  .session-toggle.open { transform: rotate(180deg); }
+  .session-body { display: none; padding: 0 14px 14px; }
+  .session-body.open { display: block; }
+
+  /* EXERCISE ROWS */
+  .exercise-row {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 0;
+  }
+  .exercise-row:last-child { border-bottom: none; }
+  .ex-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .ex-target {
+    font-size: 11px;
+    color: var(--accent);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .ex-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+
+  /* LOG INPUT ROW */
+  .log-row {
+    display: grid;
+    grid-template-columns: 60px 60px 1fr;
+    gap: 6px;
+    align-items: center;
+  }
+  .log-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .log-inputs {
+    display: grid;
+    grid-template-columns: 60px 60px 1fr;
+    gap: 6px;
+  }
+  input[type="text"], input[type="number"], textarea, select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    padding: 7px 8px;
+    width: 100%;
+    -webkit-appearance: none;
+    outline: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    background: rgba(232,255,0,0.05);
+  }
+  textarea { resize: none; min-height: 52px; }
+  .field-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .field-group { margin-bottom: 10px; }
+
+  /* RATING STARS */
+  .rating-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 4px;
+  }
+  .star {
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--border);
+    transition: color 0.15s;
+  }
+  .star.filled { color: var(--accent); }
+
+  /* CUES CARD */
+  .cue-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .cue-phase {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .cue-think { font-size: 13px; color: var(--text); margin-bottom: 4px; }
+  .cue-avoid { font-size: 12px; color: var(--accent2); }
+  .cue-avoid::before { content: '✕ '; }
+
+  /* TARGETS */
+  .target-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .target-row:last-child { border-bottom: none; }
+  .target-event { font-weight: 600; font-size: 14px; }
+  .target-vals { text-align: right; }
+  .target-current { font-size: 12px; color: var(--muted); }
+  .target-goal {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* STRENGTH TABLE */
+  .prog-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .prog-table th {
+    text-align: left;
+    padding: 8px 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .prog-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    vertical-align: top;
+  }
+  .prog-table tr:last-child td { border-bottom: none; }
+  .prog-table .wk { color: var(--accent); font-weight: 600; }
+  .prog-table .load { color: var(--text); }
+  .prog-table .notes { color: var(--muted); font-size: 11px; }
+
+  /* HEAT TIPS */
+  .tip-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+  .tip-icon { font-size: 20px; flex-shrink: 0; }
+  .tip-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+  .tip-body { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* CHECKLIST */
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .check-box.checked { background: rgba(232,255,0,0.15); border-color: var(--accent); }
+  .check-label { font-size: 13px; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text);
+    margin: 16px 0 10px;
+  }
+  .section-sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; margin-top: -6px; }
+
+  /* SAVED INDICATOR */
+  .saved-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--success);
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+  .saved-toast.show { transform: translateX(-50%) translateY(0); }
+
+  .divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+  /* WARMUP SECTION */
+  .warmup-badge {
+    background: rgba(255,77,0,0.12);
+    border: 1px solid rgba(255,77,0,0.3);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--accent2);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  /* Sets grid for logging */
+  .sets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: 6px;
+  }
+  .set-input-wrap { text-align: center; }
+  .set-num {
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2px;
+  }
+  .set-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 4px;
+    width: 100%;
+    text-align: center;
+  }
+  .set-input:focus {
+    border-color: var(--accent);
+    outline: none;
+    background: rgba(232,255,0,0.05);
+  }
+  .sets-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="logo">Sprint<span>Log</span></div>
+      <div class="athlete-tag">Tokyo · Summer 2025</div>
+    </div>
+    <button class="save-btn" onclick="saveAll()">SAVE</button>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val">11.8</div><div class="stat-lbl">100m PR</div></div>
+  <div class="stat"><div class="stat-val">24.02</div><div class="stat-lbl">200m PR</div></div>
+  <div class="stat"><div class="stat-val">80kg</div><div class="stat-lbl">Squat</div></div>
+  <div class="stat"><div class="stat-val">69cm</div><div class="stat-lbl">Vert</div></div>
+</div>
+
+<div class="tab-nav">
+  <button class="tab active" onclick="showTab('preseason')">Pre-Season</button>
+  <button class="tab" onclick="showTab('phase1')">Phase 1</button>
+  <button class="tab" onclick="showTab('phase2')">Phase 2</button>
+  <button class="tab" onclick="showTab('strength')">Strength</button>
+  <button class="tab" onclick="showTab('cues')">Cues</button>
+  <button class="tab" onclick="showTab('targets')">Targets</button>
+  <button class="tab" onclick="showTab('heat')">Heat</button>
+</div>
+
+<!-- ========== PRE-SEASON ========== -->
+<div class="content section active" id="tab-preseason">
+  <div class="phase-header">
+    <div class="phase-title">Pre-Season — Gym Only</div>
+    <div class="phase-dates">May 2 – Jun 12 · 6 Weeks · Mon + Thu</div>
+  </div>
+
+  <div class="week-selector" id="preseason-weeks"></div>
+
+  <!-- MONDAY -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div>
+        <div class="session-day gym">Monday</div>
+        <div class="session-type">Lower + Posterior Chain</div>
+      </div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="field-group">
+        <div class="field-label">Session Date</div>
+        <input type="text" class="log-field" data-key="pre_mon_date_WK" placeholder="e.g. May 5">
+      </div>
+      <div class="field-group">
+        <div class="field-label">Session Rating (1–5)</div>
+        <div class="rating-row" data-key="pre_mon_rating_WK">
+          <span class="star" onclick="setRating(this,1)">★</span>
+          <span class="star" onclick="setRating(this,2)">★</span>
+          <span class="star" onclick="setRating(this,3)">★</span>
+          <span class="star" onclick="setRating(this,4)">★</span>
+          <span class="star" onclick="setRating(this,5)">★</span>
+        </div>
+      </div>
+
+      <div id="preseason-mon-exercises">
+        <!-- JS fills this -->
+      </div>
+
+      <div class="field-group">
+        <div class="field-label">Session Notes</div>
+        <textarea class="log-field" data-key="pre_mon_notes_WK" placeholder="How it felt, issues, energy…" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- THURSDAY -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div>
+        <div class="session-day gym">Thursday</div>
+        <div class="session-type">Upper + Core</div>
+      </div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="field-group">
+        <div class="field-label">Session Date</div>
+        <input type="text" class="log-field" data-key="pre_thu_date_WK" placeholder="e.g. May 8">
+      </div>
+      <div class="field-group">
+        <div class="field-label">Session Rating (1–5)</div>
+        <div class="rating-row" data-key="pre_thu_rating_WK">
+          <span class="star" onclick="setRating(this,1)">★</span>
+          <span class="star" onclick="setRating(this,2)">★</span>
+          <span class="star" onclick="setRating(this,3)">★</span>
+          <span class="star" onclick="setRating(this,4)">★</span>
+          <span class="star" onclick="setRating(this,5)">★</span>
+        </div>
+      </div>
+
+      <div id="preseason-thu-exercises"></div>
+
+      <div class="field-group">
+        <div class="field-label">Session Notes</div>
+        <textarea class="log-field" data-key="pre_thu_notes_WK" placeholder="How it felt, issues, energy…" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PHASE 1 ========== -->
+<div class="content section" id="tab-phase1">
+  <div class="phase-header">
+    <div class="phase-title">Phase 1 — Speed-Strength</div>
+    <div class="phase-dates">Jun 13 – Jul 17 · Weeks 7–11 · 6 sessions/wk</div>
+  </div>
+
+  <div class="week-selector" id="phase1-weeks"></div>
+
+  <!-- MON GYM -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day gym">Monday</div><div class="session-type">Lower Power · Gym</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="field-group">
+        <div class="field-label">Date / Conditions</div>
+        <input type="text" class="log-field" data-key="p1_mon_date_WK" placeholder="Date">
+      </div>
+      <div id="p1-mon-exercises"></div>
+      <div class="field-group">
+        <div class="field-label">Notes</div>
+        <textarea class="log-field" data-key="p1_mon_notes_WK" rows="2" placeholder="How it felt…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- TUE AM TRACK -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Tuesday AM</div><div class="session-type">Acceleration · Track</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div class="field-group">
+          <div class="field-label">Time of Day</div>
+          <input type="text" class="log-field" data-key="p1_tuam_time_WK" placeholder="e.g. 6:30am">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Temp (°C)</div>
+          <input type="text" class="log-field" data-key="p1_tuam_temp_WK" placeholder="e.g. 28°C">
+        </div>
+      </div>
+      <div id="p1-tuam-exercises"></div>
+      <div class="field-group">
+        <div class="field-label">Session Rating</div>
+        <div class="rating-row" data-key="p1_tuam_rating_WK">
+          <span class="star" onclick="setRating(this,1)">★</span><span class="star" onclick="setRating(this,2)">★</span><span class="star" onclick="setRating(this,3)">★</span><span class="star" onclick="setRating(this,4)">★</span><span class="star" onclick="setRating(this,5)">★</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Mechanics / Snap Cue Feel</div>
+        <textarea class="log-field" data-key="p1_tuam_mech_WK" rows="2" placeholder="How did snap up feel? Any overstriding?"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- TUE PM GYM -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day gym">Tuesday PM</div><div class="session-type">Upper + Core · Gym</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div id="p1-tupm-exercises"></div>
+      <div class="field-group">
+        <div class="field-label">Notes</div>
+        <textarea class="log-field" data-key="p1_tupm_notes_WK" rows="2" placeholder="Load, feel…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- THU TRACK -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Thursday</div><div class="session-type">Max Velocity · Track ⚡ KEY SESSION</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div class="field-group">
+          <div class="field-label">Time</div>
+          <input type="text" class="log-field" data-key="p1_thu_time_WK" placeholder="e.g. 6:30am">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Temp (°C)</div>
+          <input type="text" class="log-field" data-key="p1_thu_temp_WK" placeholder="e.g. 30°C">
+        </div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Flying 60m (40m build + 60m fly)</div>
+        <div class="ex-target">4 reps · 6–7 min rest · 98%+</div>
+        <div class="ex-note">Snap up. Hot ground. Tall. This is THE session.</div>
+        <div class="sets-label">Rep times (sec)</div>
+        <div class="sets-grid">
+          <div class="set-input-wrap"><div class="set-num">Rep 1</div><input type="text" class="set-input log-field" data-key="p1_thu_fly60_1_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">Rep 2</div><input type="text" class="set-input log-field" data-key="p1_thu_fly60_2_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">Rep 3</div><input type="text" class="set-input log-field" data-key="p1_thu_fly60_3_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">Rep 4</div><input type="text" class="set-input log-field" data-key="p1_thu_fly60_4_WK" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <div class="field-label">Session Rating</div>
+        <div class="rating-row" data-key="p1_thu_rating_WK">
+          <span class="star" onclick="setRating(this,1)">★</span><span class="star" onclick="setRating(this,2)">★</span><span class="star" onclick="setRating(this,3)">★</span><span class="star" onclick="setRating(this,4)">★</span><span class="star" onclick="setRating(this,5)">★</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Mechanics Notes</div>
+        <textarea class="log-field" data-key="p1_thu_mech_WK" rows="2" placeholder="Snap cue feel, contacts, posture…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRI GYM -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day gym">Friday</div><div class="session-type">Posterior Chain · Gym</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div id="p1-fri-exercises"></div>
+      <div class="field-group">
+        <div class="field-label">Notes</div>
+        <textarea class="log-field" data-key="p1_fri_notes_WK" rows="2" placeholder="Load, eccentrics feel…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAT TRACK -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Saturday</div><div class="session-type">Speed Endurance · Track</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="exercise-row">
+        <div class="ex-name">Tempo 200m @ 75–80%</div>
+        <div class="ex-target">5–6 reps · 90 sec rest</div>
+        <div class="ex-note">Controlled. Builds back-end 200m capacity.</div>
+        <div class="sets-label">Rep times (sec)</div>
+        <div class="sets-grid">
+          <div class="set-input-wrap"><div class="set-num">R1</div><input type="text" class="set-input log-field" data-key="p1_sat_200_1_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R2</div><input type="text" class="set-input log-field" data-key="p1_sat_200_2_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R3</div><input type="text" class="set-input log-field" data-key="p1_sat_200_3_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R4</div><input type="text" class="set-input log-field" data-key="p1_sat_200_4_WK" placeholder="—"></div>
+        </div>
+        <div class="sets-grid" style="margin-top:4px;">
+          <div class="set-input-wrap"><div class="set-num">R5</div><input type="text" class="set-input log-field" data-key="p1_sat_200_5_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R6</div><input type="text" class="set-input log-field" data-key="p1_sat_200_6_WK" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <div class="field-label">Effort Feel / Notes</div>
+        <textarea class="log-field" data-key="p1_sat_notes_WK" rows="2" placeholder="How the back-end felt…"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PHASE 2 ========== -->
+<div class="content section" id="tab-phase2">
+  <div class="phase-header">
+    <div class="phase-title">Phase 2 — Specific Speed</div>
+    <div class="phase-dates">Jul 18 – Aug 24 · Weeks 12–17</div>
+  </div>
+  <div class="week-selector" id="phase2-weeks"></div>
+
+  <!-- THU FLYING 60s detail -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Thursday</div><div class="session-type">Max Velocity · 98%+ ⚡ KEY SESSION</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div class="field-group"><div class="field-label">Time</div><input type="text" class="log-field" data-key="p2_thu_time_WK" placeholder="e.g. 6:30am"></div>
+        <div class="field-group"><div class="field-label">Temp (°C)</div><input type="text" class="log-field" data-key="p2_thu_temp_WK" placeholder="e.g. 34°C"></div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Flying 60m (40m build + 60m fly)</div>
+        <div class="ex-target">4 reps · 6–7 min rest · 98%+ intensity</div>
+        <div class="ex-note">This is the session that breaks 11.5. Full commitment.</div>
+        <div class="sets-label">Rep times (sec)</div>
+        <div class="sets-grid">
+          <div class="set-input-wrap"><div class="set-num">Rep 1</div><input type="text" class="set-input log-field" data-key="p2_thu_fly60_1_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">Rep 2</div><input type="text" class="set-input log-field" data-key="p2_thu_fly60_2_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">Rep 3</div><input type="text" class="set-input log-field" data-key="p2_thu_fly60_3_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">Rep 4</div><input type="text" class="set-input log-field" data-key="p2_thu_fly60_4_WK" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <div class="field-label">Session Rating</div>
+        <div class="rating-row" data-key="p2_thu_rating_WK">
+          <span class="star" onclick="setRating(this,1)">★</span><span class="star" onclick="setRating(this,2)">★</span><span class="star" onclick="setRating(this,3)">★</span><span class="star" onclick="setRating(this,4)">★</span><span class="star" onclick="setRating(this,5)">★</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Mechanics / Snap Cue Feel</div>
+        <textarea class="log-field" data-key="p2_thu_mech_WK" rows="2" placeholder="Snap up, hot ground, tall and bounce…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAT 150s/200s -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Saturday</div><div class="session-type">Speed Endurance · 150m / 200m</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="exercise-row">
+        <div class="ex-name">150m @ 90–95% (Wks 13–16)</div>
+        <div class="ex-target">4 reps · 8 min rest</div>
+        <div class="ex-note">Forces elastic mechanics into deep lactate fatigue. Where 24.02 → 23.5.</div>
+        <div class="sets-label">Rep times (sec)</div>
+        <div class="sets-grid">
+          <div class="set-input-wrap"><div class="set-num">R1</div><input type="text" class="set-input log-field" data-key="p2_sat_150_1_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R2</div><input type="text" class="set-input log-field" data-key="p2_sat_150_2_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R3</div><input type="text" class="set-input log-field" data-key="p2_sat_150_3_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R4</div><input type="text" class="set-input log-field" data-key="p2_sat_150_4_WK" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">2 × 200m @ 95% (Wk 15 + 17 only)</div>
+        <div class="ex-target">2 reps · 15 min rest · Race simulation</div>
+        <div class="sets-label">Times (sec)</div>
+        <div class="sets-grid">
+          <div class="set-input-wrap"><div class="set-num">Rep 1</div><input type="text" class="set-input log-field" data-key="p2_sat_200_1_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">Rep 2</div><input type="text" class="set-input log-field" data-key="p2_sat_200_2_WK" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <div class="field-label">What felt good / broke down?</div>
+        <textarea class="log-field" data-key="p2_sat_notes_WK" rows="2" placeholder="Mechanics at 100m, fade, arm drive…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- TUE AM TRACK P2 -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Tuesday AM</div><div class="session-type">Sprint Speed · Track</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="exercise-row">
+        <div class="ex-name">Starts → 30m</div>
+        <div class="ex-target">5 reps · 5 min rest</div>
+        <div class="sets-label">Notes on drive phase</div>
+        <textarea class="set-input log-field" data-key="p2_tuam_starts_WK" placeholder="Body angle, push feel…" style="width:100%;min-height:40px;font-size:12px;margin-top:4px;"></textarea>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">60m Sprints @ 95%+</div>
+        <div class="ex-target">4–5 reps · 5 min rest</div>
+        <div class="sets-label">Rep times (sec)</div>
+        <div class="sets-grid">
+          <div class="set-input-wrap"><div class="set-num">R1</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_1_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R2</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_2_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R3</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_3_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R4</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_4_WK" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">120m Build → Fly</div>
+        <div class="ex-target">3 reps · 8 min rest</div>
+        <div class="field-label" style="margin-top:6px;">Notes</div>
+        <textarea class="set-input log-field" data-key="p2_tuam_120_WK" placeholder="Transition feel…" style="width:100%;min-height:40px;font-size:12px;margin-top:4px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- MON GYM P2 -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day gym">Monday</div><div class="session-type">Lower Power · Gym</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div id="p2-mon-exercises"></div>
+      <div class="field-group">
+        <div class="field-label">Notes</div>
+        <textarea class="log-field" data-key="p2_mon_notes_WK" rows="2" placeholder="Load, feel, depth…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRI GYM P2 -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day gym">Friday</div><div class="session-type">Posterior Chain · Gym</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div id="p2-fri-exercises"></div>
+      <div class="field-group">
+        <div class="field-label">Notes</div>
+        <textarea class="log-field" data-key="p2_fri_notes_WK" rows="2" placeholder="Eccentric quality, hip thrust…"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== STRENGTH ========== -->
+<div class="content section" id="tab-strength">
+  <div class="section-title">Strength Progression</div>
+  <div class="section-sub">Targets by phase. Add 2.5–5 kg every 2–3 weeks.</div>
+
+  <div style="margin-bottom:16px;">
+    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Hack Squat</div>
+    <table class="prog-table">
+      <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
+      <tr><td class="wk">Pre Wks 1–3</td><td class="load">50–60 kg × 8 × 3</td><td class="notes">Learn movement, full depth</td></tr>
+      <tr><td class="wk">Pre Wks 4–6</td><td class="load">65–70 kg × 8 × 3</td><td class="notes">Add load as form allows</td></tr>
+      <tr><td class="wk">Ph1 Wks 7–8</td><td class="load">70 kg × 5 × 4</td><td class="notes">Contrast with squat jumps</td></tr>
+      <tr><td class="wk">Ph1 Wks 9–10</td><td class="load">75 kg × 5 × 4</td><td class="notes">Maintain depth</td></tr>
+      <tr><td class="wk">Ph1 Wk 11</td><td class="load">78 kg × 4 × 4</td><td class="notes">Volume drop, intensity up</td></tr>
+      <tr><td class="wk">Wk 12 Deload</td><td class="load">65 kg × 5 × 3</td><td class="notes">Recover</td></tr>
+      <tr><td class="wk">Ph2 Wks 13–14</td><td class="load">82 kg × 3 × 4</td><td class="notes">Triple focus</td></tr>
+      <tr><td class="wk">Ph2 Wks 15–16</td><td class="load">88–92 kg × 3 × 4</td><td class="notes">Push here — strength peak</td></tr>
+      <tr><td class="wk">Ph2 Wk 17</td><td class="load">93–96 kg × 3 × 3</td><td class="notes">Season target</td></tr>
+    </table>
+  </div>
+
+  <div style="margin-bottom:16px;">
+    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Hip Thrust (Smith)</div>
+    <table class="prog-table">
+      <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
+      <tr><td class="wk">Pre-season</td><td class="load">40–50 kg × 10 × 3</td><td class="notes">Squeeze hard at top</td></tr>
+      <tr><td class="wk">Ph1 Wks 7–9</td><td class="load">60–75 kg × 10 × 4</td><td class="notes">+5 kg every 2 weeks</td></tr>
+      <tr><td class="wk">Ph1 Wks 10–11</td><td class="load">80 kg × 10 × 4</td><td class="notes">Build toward 85 kg</td></tr>
+      <tr><td class="wk">Wk 12 Deload</td><td class="load">60 kg × 8 × 3</td><td class="notes">Recover</td></tr>
+      <tr><td class="wk">Ph2 Wks 13–17</td><td class="load">90–110 kg × 5 × 4</td><td class="notes">Rep drop, load increase</td></tr>
+    </table>
+  </div>
+
+  <div style="margin-bottom:16px;">
+    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Romanian Deadlift (Friday)</div>
+    <table class="prog-table">
+      <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
+      <tr><td class="wk">Pre-season</td><td class="load">40–50 kg × 10 × 3</td><td class="notes">3-sec eccentric every rep</td></tr>
+      <tr><td class="wk">Ph1 Wks 7–9</td><td class="load">65–70 kg × 5 × 4</td><td class="notes">Heavier Friday slot</td></tr>
+      <tr><td class="wk">Ph1 Wks 10–11</td><td class="load">73–75 kg × 5 × 4</td><td class="notes">+2.5 kg per side</td></tr>
+      <tr><td class="wk">Ph2 Wks 13–17</td><td class="load">78–85 kg × 5 × 4</td><td class="notes">Phase 2 target</td></tr>
+    </table>
+  </div>
+
+  <div style="margin-bottom:16px;">
+    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Hamstring Curl (Eccentric)</div>
+    <table class="prog-table">
+      <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
+      <tr><td class="wk">Pre-season</td><td class="load">Light × 12 × 3</td><td class="notes">Learn the movement, full ROM</td></tr>
+      <tr><td class="wk">Ph1 Wks 7–8</td><td class="load">Moderate × 10 × 3</td><td class="notes">Single-leg lowering if possible</td></tr>
+      <tr><td class="wk">Ph1 Wks 9–11</td><td class="load">Heavy × 8 × 3</td><td class="notes">Lower as slowly as possible</td></tr>
+      <tr><td class="wk">Ph2 Wks 13–17</td><td class="load">Heavy × 8 × 4</td><td class="notes">Increase sets. Hamstring shield.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========== CUES ========== -->
+<div class="content section" id="tab-cues">
+  <div class="section-title">Cue System</div>
+  <div class="section-sub">Mechanics reference for every sprint session</div>
+
+  <div class="cue-card">
+    <div class="cue-phase">0–30m · Acceleration</div>
+    <div class="cue-think">Drive, push, lean forward. Low body angle. Your strength.</div>
+    <div class="cue-avoid">Standing up too soon. Overstriding in drive.</div>
+  </div>
+  <div class="cue-card">
+    <div class="cue-phase">30–60m · Transition</div>
+    <div class="cue-think">Gradually tall. Start thinking about stiffness. Arm drive active and compact.</div>
+    <div class="cue-avoid">Sudden posture change. Tensing up.</div>
+  </div>
+  <div class="cue-card" style="border-color:rgba(232,255,0,0.3);">
+    <div class="cue-phase" style="font-size:14px;">60–100m · MAX VELOCITY ⚡</div>
+    <div style="font-size:16px;font-weight:700;color:var(--accent);margin:6px 0;">"SNAP UP · HOT GROUND · TALL & BOUNCE"</div>
+    <div class="cue-think">Pull foot off ground fast. Short, sharp contacts. No hip drop.</div>
+    <div class="cue-avoid">Pushing down. Overstriding. Sitting into hips. Grinding.</div>
+  </div>
+  <div class="cue-card">
+    <div class="cue-phase">150–200m · Speed Endurance</div>
+    <div class="cue-think">Maintain tall posture. Arms drive harder when legs fatigue. Shorten stride, don't lose elasticity.</div>
+    <div class="cue-avoid">Tying up and pushing. Desperate overstriding at the end.</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title" style="font-size:16px;">Elastic Stiffness Warmup</div>
+  <div class="section-sub">Do this before EVERY track session. Focus on the SOUND — sharp tap, not a thud.</div>
+  <div class="cue-card">
+    <div class="cue-think">10 min easy jog + dynamic → Ankle pogos 2-ft (3×20) → Single-leg pogos (3×10 each) → High-freq A-skip (3×20m) → Wall drill fast alternating (3×10 each) → Build strides with snap cue (3×40m @ 85%)</div>
+  </div>
+</div>
+
+<!-- ========== TARGETS ========== -->
+<div class="content section" id="tab-targets">
+  <div class="section-title">Season Targets</div>
+
+  <div class="session-card" style="margin-bottom:12px;">
+    <div style="padding:14px;">
+      <div class="section-title" style="font-size:15px;margin:0 0 10px;">Sprint Goals</div>
+      <div class="target-row">
+        <div><div class="target-event">100m</div><div class="target-current">PR: 11.8s</div></div>
+        <div class="target-vals"><div class="target-goal">11.4–11.5s</div><div class="target-current">Ceiling: 11.3s</div></div>
+      </div>
+      <div class="target-row">
+        <div><div class="target-event">200m</div><div class="target-current">PR: 24.02s</div></div>
+        <div class="target-vals"><div class="target-goal">23.5–23.7s</div><div class="target-current">Ceiling: 23.3s</div></div>
+      </div>
+      <div class="target-row">
+        <div><div class="target-event">400m</div><div class="target-current">PR: 52.5s</div></div>
+        <div class="target-vals"><div class="target-goal">51.0–51.5s</div><div class="target-current">Ceiling: 50.5s</div></div>
+      </div>
+      <div class="target-row">
+        <div><div class="target-event">4×100 Split</div><div class="target-current">PR: 10.6–10.8s</div></div>
+        <div class="target-vals"><div class="target-goal">10.3–10.5s</div><div class="target-current">Ceiling: Sub 10.3s</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-card" style="margin-bottom:12px;">
+    <div style="padding:14px;">
+      <div class="section-title" style="font-size:15px;margin:0 0 10px;">Strength Goals</div>
+      <div class="target-row">
+        <div><div class="target-event">Hack Squat</div><div class="target-current">80 kg × 7</div></div>
+        <div class="target-vals"><div class="target-goal">95 kg × 3</div></div>
+      </div>
+      <div class="target-row">
+        <div><div class="target-event">Hip Thrust</div><div class="target-current">Unknown</div></div>
+        <div class="target-vals"><div class="target-goal">100 kg × 5</div></div>
+      </div>
+      <div class="target-row">
+        <div><div class="target-event">RDL (Friday)</div><div class="target-current">~70–75 kg</div></div>
+        <div class="target-vals"><div class="target-goal">85 kg × 5</div></div>
+      </div>
+      <div class="target-row">
+        <div><div class="target-event">Vertical Jump</div><div class="target-current">69 cm</div></div>
+        <div class="target-vals"><div class="target-goal">73–75 cm</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:16px;">Mid-Summer Check-in (Wk 11–12)</div>
+  <div class="session-card">
+    <div style="padding:14px;">
+      <div id="checklist-items"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== HEAT ========== -->
+<div class="content section" id="tab-heat">
+  <div class="section-title">Heat Management</div>
+  <div class="section-sub">Tokyo July/August — non-negotiable protocols</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🕐</div>
+    <div><div class="tip-title">Timing</div><div class="tip-body">Before 8am or after 6pm. Tokyo regularly hits 35°C+ with high humidity in July/August.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">💧</div>
+    <div><div class="tip-title">Hydration</div><div class="tip-body">1.5L minimum at track. Start 500ml 30 min before. Electrolytes for sessions over 60 min.</div></div>
+  </div>
+  <div class="tip-card" style="border-color:rgba(255,77,0,0.3);">
+    <div class="tip-icon">🌡️</div>
+    <div><div class="tip-title">Over 35°C Rule</div><div class="tip-body">Cut sprint volume by 30%. Add 1 min to rest periods. 4 good reps > 6 bad ones.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🧊</div>
+    <div><div class="tip-title">Cooling</div><div class="tip-body">Wet towel on neck between reps. Ice pack on wrists/forehead. Don't sit in direct sun between reps.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">⭐</div>
+    <div><div class="tip-title">Feel Ratings</div><div class="tip-body">Rate every session 1–5. Two consecutive sessions at 2 or below = take extra rest day. Humidity impairs performance even at moderate temps.</div></div>
+  </div>
+</div>
+
+<div class="saved-toast" id="toast">✓ SAVED</div>
+
+<script>
+// ===== DATA =====
+const PRESEASON_MON_EX = [
+  { name: 'Hack Squat', target: '50–70 kg × 8 × 3–4', note: 'Full depth. 3 sec eccentric down.', sets: 4 },
+  { name: 'Leg Press (single-leg)', target: '3 × 10 each leg', note: 'Drive through heel. Controlled return.', sets: 3 },
+  { name: 'Romanian Deadlift (Smith)', target: '40–50 kg × 10 × 3', note: 'Slow 3-sec eccentric. Feel hamstring stretch.', sets: 3 },
+  { name: 'Hamstring Curl', target: '3 × 12', note: 'Full ROM. Squeeze at top. Your sprint brakes.', sets: 3 },
+  { name: 'Hip Abductor', target: '3 × 15', note: 'Pelvic stability during sprint.', sets: 3 },
+  { name: 'Calf Raise', target: '4 × 15 (3 sec down)', note: 'Achilles loading. Slow eccentric is the key.', sets: 4 },
+];
+
+const PRESEASON_THU_EX = [
+  { name: 'Chest Press (machine)', target: '4 × 8', note: 'Controlled push. Build shoulder stability.', sets: 4 },
+  { name: 'Shoulder Press (machine)', target: '3 × 10', note: 'Strict — no momentum.', sets: 3 },
+  { name: 'Cable Row (low)', target: '3 × 10', note: 'Pull to lower chest. Elbows tight.', sets: 3 },
+  { name: 'Cable Lat Pulldown', target: '3 × 10', note: 'Full stretch at top.', sets: 3 },
+  { name: 'Cable Pallof Press', target: '3 × 12 each side', note: 'Anti-rotation core. Sprint posture stability.', sets: 3 },
+  { name: 'Cable Woodchop (high-to-low)', target: '3 × 10 each side', note: 'Rotational core. Control throughout.', sets: 3 },
+  { name: 'Dumbbell Row', target: '3 × 10 each side', note: 'Heavy. Full ROM.', sets: 3 },
+];
+
+const P1_MON_EX = [
+  { name: 'Hack Squat + Squat Jumps (contrast)', target: '70 kg × 5 × 4 → 78 kg | Jump 4×4', note: 'Jump immediately after each squat set.', sets: 4 },
+  { name: 'Romanian Deadlift (Smith)', target: '50–60 kg × 8 × 3', note: '3-sec eccentric. Feel hamstring stretch.', sets: 3 },
+  { name: 'Leg Press (single-leg)', target: '3 × 8 each', note: 'Drive through heel.', sets: 3 },
+  { name: 'Hamstring Curl', target: '3 × 10', note: 'Controlled. Full ROM.', sets: 3 },
+  { name: 'Calf Raise (slow eccentrics)', target: '4 × 12 (4 sec down)', note: 'Achilles loading — do not rush.', sets: 4 },
+  { name: 'Single-leg Calf Raise', target: '3 × 20 each', note: 'Bodyweight, full height. Tendon endurance.', sets: 3 },
+];
+
+const P1_TUAM_EX = [
+  { name: 'Block/Standing Starts → 20m', target: '6–8 reps | 5 min rest', note: 'Drive phase. Low body angle.', sets: 8 },
+  { name: 'Flying 30m (30m build + 30m fly)', target: '4 reps | 6 min rest', note: 'Build to 90% then fly zone at 98%. Snap up.', sets: 4 },
+  { name: 'Wicket Runs / Stride Drill', target: '3 × 40m | 3 min rest', note: 'Exaggerate stride length first half, frequency second.', sets: 3 },
+];
+
+const P1_TUPM_EX = [
+  { name: 'Chest Press / DB Bench', target: '39 kg eq × 6 × 4 → 44 kg', note: 'Add 2.5 kg every 2 weeks.', sets: 4 },
+  { name: 'Shoulder Press (machine)', target: '3 × 8', note: 'Strict — no leg drive.', sets: 3 },
+  { name: 'Cable Row', target: '3 × 10 each', note: 'Heavy. Full ROM.', sets: 3 },
+  { name: 'Cable Lat Pulldown', target: '3 × 8–10', note: 'Full hang at bottom.', sets: 3 },
+  { name: 'Cable Pallof Press', target: '3 × 12 each side', note: 'Anti-rotation core.', sets: 3 },
+  { name: 'Cable Woodchop', target: '3 × 10 each side', note: 'Rotational core power.', sets: 3 },
+];
+
+const P1_FRI_EX = [
+  { name: 'Romanian Deadlift (Smith) — Heavy', target: '65–75 kg × 5 × 4', note: 'Slow down, explosive up.', sets: 4 },
+  { name: 'Hamstring Curl (slow eccentrics)', target: '4 × 6–8', note: 'Lower as slowly as possible. Two legs up, one leg down.', sets: 4 },
+  { name: 'Hip Thrust (Smith)', target: '60–80 kg × 10 × 4', note: 'Drive from glutes. Full hip extension. Build to 100 kg+.', sets: 4 },
+  { name: 'Depth Drop / Reactive Squat Jumps', target: '4 × 3', note: 'Land stiff, sprint 10m.', sets: 4 },
+  { name: 'DB Step-up — explosive', target: '3 × 8 each', note: 'Drive knee up explosively.', sets: 3 },
+  { name: 'Bounding (alt. leg)', target: '3 × 30m', note: 'Stiff contact not hang time.', sets: 3 },
+  { name: 'Tibialis Raises', target: '3 × 20', note: 'Lean back against wall, raise toes. Prevents shin splints.', sets: 3 },
+  { name: 'Calf Raise + Hip Abductor + Adductor', target: '4×12 / 3×15 / 3×15', note: 'Achilles + pelvic stability.', sets: 4 },
+];
+
+const P2_MON_EX = [
+  { name: 'Hack Squat + Squat Jumps (contrast)', target: '82 kg × 3 → 95 kg × 3 by Wk 17', note: 'Heavier triples. Contrast jumps 4×4.', sets: 4 },
+  { name: 'Romanian Deadlift (Smith)', target: '75–80 kg × 5 × 4', note: 'Maintain slow eccentric.', sets: 4 },
+  { name: 'Leg Press (single-leg)', target: '3 × 8 each', note: 'Drive through heel.', sets: 3 },
+  { name: 'Calf + Single-leg Calf', target: '4 × 12 / 3 × 20', note: 'Achilles load + tendon endurance.', sets: 4 },
+];
+
+const P2_FRI_EX = [
+  { name: 'Romanian Deadlift (Smith)', target: '80–85 kg × 5 × 4', note: 'Phase 2 heavy target.', sets: 4 },
+  { name: 'Hamstring Curl (eccentrics)', target: 'Build to 4 × 8', note: 'Lower as slowly as possible.', sets: 4 },
+  { name: 'Hip Thrust (Smith)', target: 'Build to 100–110 kg', note: 'Rep drop, big load increase.', sets: 4 },
+  { name: 'Reactive Jump → Sprint + Bounding', target: 'Same as Ph1 — heavier/further', note: 'Explosiveness carries over.', sets: 3 },
+  { name: 'Tibialis + Calf + Hip Ab/Adductor', target: '3×20 / 4×12 / 3×15', note: 'Maintenance + injury prevention.', sets: 3 },
+];
+
+const CHECKLIST = [
+  'Is hack squat progressing on schedule?',
+  'Can you feel elastic contacts on pogos?',
+  'Are flying 60s feeling lighter / faster?',
+  'Hip thrust reaching 80 kg+?',
+  'Hamstring curl eccentrics improving?',
+  'Sleep averaging 8 hrs?',
+];
+
+// ===== STORAGE KEY =====
+const STORE = 'sprintlog_v1';
+let data = {};
+try { data = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) {}
+
+function save(key, val) { data[key] = val; localStorage.setItem(STORE, JSON.stringify(data)); }
+function load(key) { return data[key] || ''; }
+
+// ===== RENDER EXERCISES =====
+function renderExercises(containerId, exercises, prefix) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = exercises.map(ex => `
+    <div class="exercise-row">
+      <div class="ex-name">${ex.name}</div>
+      <div class="ex-target">${ex.target}</div>
+      <div class="ex-note">${ex.note}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div class="field-group">
+          <div class="field-label">Load Used</div>
+          <input type="text" class="set-input log-field" data-key="${prefix}_${ex.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'')}_load_WK" placeholder="e.g. 72 kg">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Reps/Sets Done</div>
+          <input type="text" class="set-input log-field" data-key="${prefix}_${ex.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'')}_reps_WK" placeholder="e.g. 5×4">
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:4px;">
+        <div class="field-label">Feel / Notes</div>
+        <input type="text" class="set-input log-field" data-key="${prefix}_${ex.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'')}_feel_WK" placeholder="Easy / Hard / Notes">
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== WEEK SELECTORS =====
+function buildWeeks(containerId, weeks, prefix) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = weeks.map((w,i) => `<button class="week-btn${i===0?' active':''}" onclick="selectWeek('${prefix}','${w}',this)">${w}</button>`).join('');
+}
+
+let currentWeek = { preseason: 'Wk1', phase1: 'Wk7', phase2: 'Wk12' };
+
+function selectWeek(phase, wk, btn) {
+  currentWeek[phase] = wk;
+  btn.closest('.week-selector').querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadWeekData(phase);
+}
+
+function loadWeekData(phase) {
+  const wk = currentWeek[phase] || 'Wk1';
+  document.querySelectorAll('#tab-' + (phase==='phase1'?'phase1':phase==='phase2'?'phase2':'preseason') + ' .log-field').forEach(el => {
+    const rawKey = el.dataset.key;
+    if (!rawKey) return;
+    const key = rawKey.replace('WK', wk);
+    if (el.tagName === 'TEXTAREA' || el.type === 'text' || el.type === 'number') {
+      el.value = load(key);
+    }
+  });
+  // Restore ratings
+  document.querySelectorAll('#tab-' + (phase==='phase1'?'phase1':phase==='phase2'?'phase2':'preseason') + ' .rating-row').forEach(row => {
+    const rawKey = row.dataset.key;
+    if (!rawKey) return;
+    const key = rawKey.replace('WK', wk);
+    const val = parseInt(load(key)) || 0;
+    row.querySelectorAll('.star').forEach((s,i) => s.classList.toggle('filled', i < val));
+  });
+}
+
+// ===== TABS =====
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ===== TOGGLE SESSION =====
+function toggleSession(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.session-toggle');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// ===== RATING =====
+function setRating(star, val) {
+  const row = star.closest('.rating-row');
+  row.querySelectorAll('.star').forEach((s,i) => s.classList.toggle('filled', i < val));
+  const rawKey = row.dataset.key;
+  if (!rawKey) return;
+  const phase = getPhaseFromElement(row);
+  const wk = currentWeek[phase] || 'Wk1';
+  save(rawKey.replace('WK', wk), val);
+}
+
+function getPhaseFromElement(el) {
+  const tab = el.closest('.section');
+  if (!tab) return 'preseason';
+  if (tab.id === 'tab-phase1') return 'phase1';
+  if (tab.id === 'tab-phase2') return 'phase2';
+  return 'preseason';
+}
+
+// ===== SAVE ALL =====
+function saveAll() {
+  document.querySelectorAll('.log-field').forEach(el => {
+    const rawKey = el.dataset.key;
+    if (!rawKey || !rawKey.includes('WK')) return;
+    const phase = getPhaseFromElement(el);
+    const wk = currentWeek[phase] || 'Wk1';
+    const key = rawKey.replace('WK', wk);
+    save(key, el.value || '');
+  });
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// Auto-save on input
+document.addEventListener('input', e => {
+  if (e.target.classList.contains('log-field')) {
+    const rawKey = e.target.dataset.key;
+    if (!rawKey || !rawKey.includes('WK')) return;
+    const phase = getPhaseFromElement(e.target);
+    const wk = currentWeek[phase] || 'Wk1';
+    save(rawKey.replace('WK', wk), e.target.value);
+  }
+});
+
+// ===== CHECKLIST =====
+function buildChecklist() {
+  const c = document.getElementById('checklist-items');
+  c.innerHTML = CHECKLIST.map((item, i) => {
+    const checked = load('checklist_' + i) === '1';
+    return `<div class="checklist-item">
+      <div class="check-box${checked?' checked':''}" onclick="toggleCheck(this,${i})">${checked?'✓':''}</div>
+      <div class="check-label">${item}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCheck(el, i) {
+  const isChecked = el.classList.toggle('checked');
+  el.textContent = isChecked ? '✓' : '';
+  save('checklist_' + i, isChecked ? '1' : '0');
+}
+
+// ===== INIT =====
+function init() {
+  renderExercises('preseason-mon-exercises', PRESEASON_MON_EX, 'pre_mon');
+  renderExercises('preseason-thu-exercises', PRESEASON_THU_EX, 'pre_thu');
+  renderExercises('p1-mon-exercises', P1_MON_EX, 'p1_mon');
+  renderExercises('p1-tuam-exercises', P1_TUAM_EX, 'p1_tuam');
+  renderExercises('p1-tupm-exercises', P1_TUPM_EX, 'p1_tupm');
+  renderExercises('p1-fri-exercises', P1_FRI_EX, 'p1_fri');
+  renderExercises('p2-mon-exercises', P2_MON_EX, 'p2_mon');
+  renderExercises('p2-fri-exercises', P2_FRI_EX, 'p2_fri');
+
+  buildWeeks('preseason-weeks', ['Wk1','Wk2','Wk3','Wk4','Wk5','Wk6'], 'preseason');
+  buildWeeks('phase1-weeks', ['Wk7','Wk8','Wk9','Wk10','Wk11'], 'phase1');
+  buildWeeks('phase2-weeks', ['Wk12','Wk13','Wk14','Wk15','Wk16','Wk17'], 'phase2');
+
+  buildChecklist();
+  loadWeekData('preseason');
+}
+
+init();
+</script>
+</body>
+</html>
