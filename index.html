@@ -5,18 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Sprint Training Plan — Summer 2025</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
   :root {
-    --bg: #0a0a0a;
-    --surface: #141414;
-    --card: #1a1a1a;
-    --border: #2a2a2a;
-    --accent: #e8ff00;
-    --accent2: #ff4d00;
-    --text: #f0f0f0;
-    --muted: #888;
-    --success: #00e676;
+    --bg: #1e1f22;
+    --surface: #26272b;
+    --card: #2c2d32;
+    --card-raised: #313237;
+    --border: #3a3b41;
+    --border-soft: #33343a;
+
+    /* Pastel accents */
+    --green: #7ecba1;
+    --green-dim: rgba(126,203,161,0.12);
+    --green-border: rgba(126,203,161,0.25);
+    --amber: #f0c97a;
+    --amber-dim: rgba(240,201,122,0.12);
+    --amber-border: rgba(240,201,122,0.25);
+    --coral: #e8897a;
+    --coral-dim: rgba(232,137,122,0.1);
+    --coral-border: rgba(232,137,122,0.25);
+    --blue: #7ab8e8;
+    --blue-dim: rgba(122,184,232,0.1);
+    --blue-border: rgba(122,184,232,0.25);
+    --lavender: #b0a4e8;
+    --lavender-dim: rgba(176,164,232,0.1);
+
+    --text: #e8e8ea;
+    --text-dim: #9a9ba3;
+    --text-faint: #5a5b63;
+    --muted: #7a7b84;
+    --muted2: #4a4b54;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,17 +43,17 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Barlow', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     min-height: 100vh;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
   }
 
   /* HEADER */
   .header {
     background: var(--surface);
-    border-bottom: 2px solid var(--accent);
-    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 16px 12px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -43,57 +62,104 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 12px;
   }
   .logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 22px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 13px;
     letter-spacing: 2px;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
-  .logo span { color: var(--text); }
-  .athlete-tag {
-    font-size: 11px;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
   }
+  .logo span { color: var(--green); }
   .save-btn {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
+    background: var(--green-dim);
+    color: var(--green);
+    border: 1px solid var(--green-border);
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
+    transition: background 0.2s;
   }
+  .save-btn:hover { background: rgba(126,203,161,0.2); }
 
-  /* STATS BAR */
-  .stats-bar {
+  /* GOALS BAR */
+  .goals-bar {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border-bottom: 1px solid var(--border);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
   }
-  .stat {
-    background: var(--surface);
-    padding: 10px 8px;
+  .goal-item {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 7px 8px;
     text-align: center;
+    cursor: pointer;
+    position: relative;
   }
-  .stat-val {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 17px;
-    color: var(--accent);
+  .goal-item:active { background: var(--card-raised); }
+  .goal-event {
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 3px;
+    font-family: 'DM Mono', monospace;
   }
-  .stat-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .goal-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    font-weight: 500;
+    line-height: 1;
+  }
+  .goal-val-input {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    font-weight: 500;
+    background: var(--bg);
+    border: 1px solid var(--amber-border);
+    border-radius: 3px;
+    padding: 2px 4px;
+    width: 100%;
+    text-align: center;
+    outline: none;
+    line-height: 1;
+  }
+  .goal-pr {
+    font-size: 9px;
+    color: var(--text-faint);
+    margin-top: 2px;
+    font-family: 'DM Mono', monospace;
+  }
+  .goal-pr-input {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--text-faint);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-soft);
+    padding: 0 2px;
+    width: 100%;
+    text-align: center;
+    outline: none;
+    margin-top: 2px;
+  }
+  .goal-edit-hint {
+    font-size: 8px;
+    color: var(--text-faint);
+    margin-top: 2px;
+    font-family: 'DM Mono', monospace;
+    opacity: 0.6;
+  }
 
   /* NAV TABS */
   .tab-nav {
@@ -102,17 +168,16 @@
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
   }
   .tab-nav::-webkit-scrollbar { display: none; }
   .tab {
     flex: 0 0 auto;
-    padding: 12px 16px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     color: var(--muted);
     cursor: pointer;
     border-bottom: 2px solid transparent;
@@ -121,64 +186,60 @@
     border-top: none;
     border-left: none;
     border-right: none;
+    transition: color 0.15s;
   }
-  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab.active { color: var(--green); border-bottom-color: var(--green); }
 
   /* CONTENT */
-  .content { padding: 12px; }
+  .content { padding: 14px; }
   .section { display: none; }
   .section.active { display: block; }
 
   /* PHASE BADGE */
   .phase-header {
-    background: linear-gradient(135deg, #1e1e1e, #252525);
+    background: var(--card);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
+    border-left: 3px solid var(--green);
     border-radius: 8px;
-    padding: 12px 14px;
+    padding: 11px 14px;
     margin-bottom: 12px;
   }
   .phase-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--green);
   }
-  .phase-dates { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .phase-dates { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: 'DM Mono', monospace; }
 
   /* WEEK SELECTOR */
   .week-selector {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 8px;
+    display: grid;
+    gap: 6px;
+    padding-bottom: 10px;
     margin-bottom: 12px;
-    scrollbar-width: none;
   }
-  .week-selector::-webkit-scrollbar { display: none; }
   .week-btn {
-    flex: 0 0 auto;
-    padding: 6px 14px;
+    padding: 7px 6px;
     border: 1px solid var(--border);
-    border-radius: 20px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
     color: var(--muted);
     cursor: pointer;
-    background: var(--surface);
-    text-transform: uppercase;
+    background: var(--card);
+    transition: all 0.15s;
+    text-align: center;
+    white-space: nowrap;
   }
-  .week-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(232,255,0,0.08); }
+  .week-btn.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
 
   /* SESSION CARDS */
   .session-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     overflow: hidden;
   }
   .session-header {
@@ -190,136 +251,232 @@
     user-select: none;
   }
   .session-day {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
   }
-  .session-day.gym { color: #4fc3f7; }
-  .session-day.track { color: var(--accent2); }
+  .session-day.gym { color: var(--blue); }
+  .session-day.track { color: var(--coral); }
   .session-day.rest { color: var(--muted); }
   .session-type {
     font-size: 11px;
     color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 1px;
+    margin-top: 2px;
+    letter-spacing: 0.2px;
   }
   .session-toggle {
-    color: var(--muted);
-    font-size: 16px;
+    color: var(--text-faint);
+    font-size: 12px;
     transition: transform 0.2s;
+    width: 20px; text-align: center;
   }
   .session-toggle.open { transform: rotate(180deg); }
-  .session-body { display: none; padding: 0 14px 14px; }
+  .session-body { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
   .session-body.open { display: block; }
 
   /* EXERCISE ROWS */
   .exercise-row {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding: 10px 0;
+    background: var(--card-raised);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 11px 12px;
+    margin-top: 8px;
   }
-  .exercise-row:last-child { border-bottom: none; }
+  
+  .ex-name-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    gap: 6px;
+  }
   .ex-name {
     font-weight: 600;
     font-size: 13px;
     color: var(--text);
-    margin-bottom: 4px;
+    flex: 1;
+    line-height: 1.3;
+  }
+  .ex-muscle-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--amber);
+    background: var(--amber-dim);
+    border: 1px solid var(--amber-border);
+    border-radius: 3px;
+    padding: 2px 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .ex-target {
+    font-family: 'DM Mono', monospace;
     font-size: 11px;
-    color: var(--accent);
-    font-family: 'Barlow Condensed', sans-serif;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
+    color: var(--green);
+    letter-spacing: 0.2px;
+    margin-bottom: 3px;
   }
   .ex-note {
     font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 8px;
+    color: var(--text-dim);
     font-style: italic;
+    line-height: 1.4;
   }
 
-  /* LOG INPUT ROW */
-  .log-row {
-    display: grid;
-    grid-template-columns: 60px 60px 1fr;
-    gap: 6px;
-    align-items: center;
+  /* ALTERNATIVES DROPDOWN */
+  .alt-panel {
+    display: none;
+    background: var(--bg);
+    border: 1px solid var(--coral-border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    margin-top: 8px;
   }
-  .log-label {
-    font-size: 10px;
-    color: var(--muted);
+  .alt-panel.open { display: block; }
+  .alt-panel-title {
+    font-size: 9px;
+    color: var(--coral);
     text-transform: uppercase;
-    text-align: center;
+    letter-spacing: 1px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 8px;
+    font-weight: 500;
   }
-  .log-inputs {
-    display: grid;
-    grid-template-columns: 60px 60px 1fr;
+  .alt-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .alt-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .alt-item:first-of-type { padding-top: 0; }
+  .alt-bullet {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--coral);
+    opacity: 0.5;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .alt-name { font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .alt-note { font-size: 11px; color: var(--text-dim); margin-top: 2px; line-height: 1.3; }
+
+  /* SPRINT TRANSLATION PANEL */
+  .sprint-panel {
+    display: none;
+    background: var(--bg);
+    border: 1px solid var(--green-border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    margin-top: 6px;
+  }
+  .sprint-panel.open { display: block; }
+  .sprint-panel-title {
+    font-size: 9px;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .sprint-muscle {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .sprint-why {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  .ex-info-row {
+    display: flex;
     gap: 6px;
+    margin-top: 8px;
   }
+  .ex-info-btn {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 9px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .ex-info-btn:hover { color: var(--text); border-color: var(--muted2); }
+  .ex-info-btn.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+  .ex-info-btn.alts-btn.active { border-color: var(--coral); color: var(--coral); background: var(--coral-dim); }
+
+  /* LOG INPUT */
   input[type="text"], input[type="number"], textarea, select {
-    background: rgba(255,255,255,0.05);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 6px;
     color: var(--text);
-    font-family: 'Barlow', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 13px;
-    padding: 7px 8px;
+    padding: 7px 9px;
     width: 100%;
     -webkit-appearance: none;
     outline: none;
+    transition: border-color 0.15s;
   }
   input:focus, textarea:focus, select:focus {
-    border-color: var(--accent);
-    background: rgba(232,255,0,0.05);
+    border-color: var(--green);
+    background: var(--surface);
   }
   textarea { resize: none; min-height: 52px; }
   .field-label {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--muted);
     margin-bottom: 4px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
+    font-family: 'DM Mono', monospace;
   }
   .field-group { margin-bottom: 10px; }
 
   /* RATING STARS */
   .rating-row {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
-    margin-top: 4px;
+    margin-top: 2px;
   }
   .star {
-    font-size: 22px;
+    font-size: 18px;
     cursor: pointer;
-    color: var(--border);
+    color: var(--muted2);
     transition: color 0.15s;
   }
-  .star.filled { color: var(--accent); }
+  .star.filled { color: var(--amber); }
 
   /* CUES CARD */
   .cue-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 13px 14px;
+    margin-bottom: 8px;
   }
   .cue-phase {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: var(--accent);
-    margin-bottom: 4px;
+    color: var(--muted);
+    margin-bottom: 6px;
   }
-  .cue-think { font-size: 13px; color: var(--text); margin-bottom: 4px; }
-  .cue-avoid { font-size: 12px; color: var(--accent2); }
-  .cue-avoid::before { content: '✕ '; }
+  .cue-think { font-size: 13px; color: var(--text); margin-bottom: 6px; line-height: 1.5; }
+  .cue-avoid { font-size: 12px; color: var(--coral); line-height: 1.4; }
+  .cue-avoid::before { content: '✕  '; }
 
   /* TARGETS */
   .target-row {
@@ -327,39 +484,43 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid var(--border-soft);
   }
   .target-row:last-child { border-bottom: none; }
-  .target-event { font-weight: 600; font-size: 14px; }
-  .target-vals { text-align: right; }
-  .target-current { font-size: 12px; color: var(--muted); }
+  .target-event { font-weight: 600; font-size: 13px; color: var(--text); }
+  .target-current { font-size: 11px; color: var(--muted); margin-top: 1px; font-family: 'DM Mono', monospace; }
   .target-goal {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    color: var(--accent);
-    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--amber);
+    font-weight: 500;
+    text-align: right;
   }
+  .target-ceiling { font-size: 10px; color: var(--text-faint); text-align: right; font-family: 'DM Mono', monospace; margin-top: 1px; }
 
   /* STRENGTH TABLE */
   .prog-table { width: 100%; border-collapse: collapse; font-size: 12px; }
   .prog-table th {
     text-align: left;
-    padding: 8px 6px;
+    padding: 7px 8px;
     color: var(--muted);
     text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.5px;
+    font-size: 9px;
+    letter-spacing: 0.8px;
     border-bottom: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    background: var(--surface);
   }
   .prog-table td {
-    padding: 8px 6px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 8px 8px;
+    border-bottom: 1px solid var(--border-soft);
     vertical-align: top;
+    font-size: 12px;
   }
   .prog-table tr:last-child td { border-bottom: none; }
-  .prog-table .wk { color: var(--accent); font-weight: 600; }
-  .prog-table .load { color: var(--text); }
-  .prog-table .notes { color: var(--muted); font-size: 11px; }
+  .prog-table .wk { color: var(--blue); font-weight: 500; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .prog-table .load { color: var(--text); font-family: 'DM Mono', monospace; font-size: 11px; }
+  .prog-table .notes { color: var(--text-dim); font-size: 11px; }
 
   /* HEAT TIPS */
   .tip-card {
@@ -372,59 +533,57 @@
     padding: 12px;
     margin-bottom: 8px;
   }
-  .tip-icon { font-size: 20px; flex-shrink: 0; }
-  .tip-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
-  .tip-body { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .tip-card.warn { border-left: 3px solid var(--coral); }
+  .tip-icon { font-size: 18px; flex-shrink: 0; }
+  .tip-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; color: var(--text); }
+  .tip-body { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
 
   /* CHECKLIST */
   .checklist-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border-soft);
   }
   .check-box {
-    width: 22px;
-    height: 22px;
-    border: 2px solid var(--border);
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--border);
     border-radius: 4px;
     flex-shrink: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
-    color: var(--accent);
+    font-size: 11px;
+    color: var(--green);
+    transition: all 0.15s;
   }
-  .check-box.checked { background: rgba(232,255,0,0.15); border-color: var(--accent); }
-  .check-label { font-size: 13px; }
+  .check-box.checked { background: var(--green-dim); border-color: var(--green); }
+  .check-label { font-size: 13px; line-height: 1.4; color: var(--text-dim); }
 
   /* SECTION TITLE */
   .section-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-weight: 600;
+    font-size: 14px;
     color: var(--text);
-    margin: 16px 0 10px;
+    margin: 16px 0 8px;
   }
-  .section-sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; margin-top: -6px; }
+  .section-sub { font-size: 11px; color: var(--muted); margin-bottom: 12px; margin-top: -4px; line-height: 1.4; }
 
-  /* SAVED INDICATOR */
+  /* SAVED TOAST */
   .saved-toast {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--success);
-    color: #000;
-    padding: 10px 20px;
+    background: var(--green);
+    color: #1a2e22;
+    padding: 9px 20px;
     border-radius: 20px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 12px;
     letter-spacing: 1px;
     transition: transform 0.3s ease;
     z-index: 999;
@@ -435,17 +594,17 @@
 
   /* WARMUP SECTION */
   .warmup-badge {
-    background: rgba(255,77,0,0.12);
-    border: 1px solid rgba(255,77,0,0.3);
+    background: var(--amber-dim);
+    border: 1px solid var(--amber-border);
     border-radius: 6px;
     padding: 8px 12px;
-    font-size: 12px;
-    color: var(--accent2);
+    font-size: 11px;
+    color: var(--amber);
     margin-bottom: 10px;
     font-weight: 500;
   }
 
-  /* Sets grid for logging */
+  /* Sets grid */
   .sets-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -459,9 +618,10 @@
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 2px;
+    font-family: 'DM Mono', monospace;
   }
   .set-input {
-    background: rgba(255,255,255,0.05);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 5px;
     color: var(--text);
@@ -469,49 +629,270 @@
     padding: 5px 4px;
     width: 100%;
     text-align: center;
+    font-family: 'DM Mono', monospace;
   }
-  .set-input:focus {
-    border-color: var(--accent);
-    outline: none;
-    background: rgba(232,255,0,0.05);
-  }
+  .set-input:focus { border-color: var(--green); outline: none; background: var(--surface); }
   .sets-label {
     font-size: 10px;
     color: var(--muted);
-    text-align: center;
     margin-bottom: 2px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-family: 'DM Mono', monospace;
   }
-</style>
+
+  /* Sub-section within session */
+  .sub-section-title {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    padding: 10px 0 6px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+
+  /* LOG FIELDS within exercise rows */
+  .log-fields-wrap {
+    border-top: 1px solid var(--border-soft);
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .pt-8 { padding-top: 8px; }
+
+  /* NOTE ICON BUTTON */
+  .note-icon-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.15s;
+    margin-top: 8px;
+  }
+  .note-icon-btn:hover { border-color: var(--muted); color: var(--text); }
+  .note-icon-btn.has-note { border-color: var(--amber-border); color: var(--amber); background: var(--amber-dim); }
+  .note-icon-btn span { font-size: 10px; font-family: 'DM Mono', monospace; letter-spacing: 0.3px; }
+  .note-inline-field { display: none; margin-top: 6px; }
+  .note-inline-field.open { display: block; }
+
+  /* ALTERNATIVE SELECT */
+  .alt-select-wrap {
+    margin-top: 8px;
+  }
+  .alt-select-label {
+    font-size: 9px;
+    color: var(--coral);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+  .alt-select {
+    background: var(--bg);
+    border: 1px solid var(--coral-border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 8px;
+    width: 100%;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23e8897a' opacity='0.7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+  }
+  .alt-select:focus { outline: none; border-color: var(--coral); }
+
+  /* RECIPE STYLES */
+  .recipe-filter-btn {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .recipe-filter-btn.active { background: var(--green-dim); border-color: var(--green-border); color: var(--green); }
+  .recipe-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .recipe-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+  }
+  .recipe-emoji { font-size: 20px; flex-shrink: 0; }
+  .recipe-info { flex: 1; min-width: 0; }
+  .recipe-name { font-weight: 600; font-size: 13px; color: var(--text); line-height: 1.3; }
+  .recipe-meta { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: 'DM Mono', monospace; }
+  .recipe-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+  .recipe-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tag-pre { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-border); }
+  .tag-post { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+  .tag-recovery { background: var(--lavender-dim); color: var(--lavender); border: 1px solid rgba(176,164,232,0.3); }
+  .tag-quick { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border); }
+  .tag-heat { background: var(--coral-dim); color: var(--coral); border: 1px solid var(--coral-border); }
+  .recipe-body { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
+  .recipe-body.open { display: block; }
+  .recipe-section-label {
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    margin: 12px 0 6px;
+  }
+  .recipe-ingredients {
+    background: var(--card-raised);
+    border: 1px solid var(--border-soft);
+    border-radius: 7px;
+    padding: 10px 12px;
+  }
+  .recipe-ingredient {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 12px;
+    gap: 10px;
+  }
+  .recipe-ingredient:last-child { border-bottom: none; }
+  .ing-name { color: var(--text); flex: 1; }
+  .ing-amount { color: var(--amber); font-family: 'DM Mono', monospace; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+  .recipe-steps { list-style: none; counter-reset: steps; }
+  .recipe-step {
+    counter-increment: steps;
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+  .recipe-step::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-radius: 50%;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    padding-top: 1px;
+  }
+  .recipe-note-box {
+    background: var(--amber-dim);
+    border: 1px solid var(--amber-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--amber);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .recipe-toggle { color: var(--text-faint); font-size: 12px; transition: transform 0.2s; width: 20px; text-align: center; flex-shrink: 0; }
+  .recipe-toggle.open { transform: rotate(180deg); }
+  .cat-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .cat-drinks { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-border); }
+  .cat-shakes { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+  .cat-meals { background: var(--coral-dim); color: var(--coral); border: 1px solid var(--coral-border); }
+  .cat-snacks { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border); }
+  .cat-treats { background: var(--lavender-dim); color: var(--lavender); border: 1px solid rgba(176,164,232,0.3); }
+  .cat-desserts { background: rgba(232,137,122,0.15); color: var(--coral); border: 1px solid var(--coral-border); }
+  .cat-other { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+
 </head>
 <body>
 
 <div class="header">
   <div class="header-top">
-    <div>
-      <div class="logo">Sprint<span>Log</span></div>
-      <div class="athlete-tag">Tokyo · Summer 2025</div>
+    <div class="logo">Sprint<span>Log</span> · Summer 2025</div>
+    <button class="save-btn" onclick="saveAll()">Save</button>
+  </div>
+  <div class="goals-bar" id="goals-bar">
+    <div class="goal-item" onclick="editGoal(this)">
+      <div class="goal-event">100m</div>
+      <div class="goal-val" data-key="goal_100m_target">11.4–11.5</div>
+      <div class="goal-pr" data-key="goal_100m_pr">PR 11.8</div>
     </div>
-    <button class="save-btn" onclick="saveAll()">SAVE</button>
+    <div class="goal-item" onclick="editGoal(this)">
+      <div class="goal-event">200m</div>
+      <div class="goal-val" data-key="goal_200m_target">23.5–23.7</div>
+      <div class="goal-pr" data-key="goal_200m_pr">PR 24.02</div>
+    </div>
+    <div class="goal-item" onclick="editGoal(this)">
+      <div class="goal-event">400m</div>
+      <div class="goal-val" data-key="goal_400m_target">51.0–51.5</div>
+      <div class="goal-pr" data-key="goal_400m_pr">PR 52.5</div>
+    </div>
   </div>
 </div>
 
-<div class="stats-bar">
-  <div class="stat"><div class="stat-val">11.8</div><div class="stat-lbl">100m PR</div></div>
-  <div class="stat"><div class="stat-val">24.02</div><div class="stat-lbl">200m PR</div></div>
-  <div class="stat"><div class="stat-val">80kg</div><div class="stat-lbl">Squat</div></div>
-  <div class="stat"><div class="stat-val">69cm</div><div class="stat-lbl">Vert</div></div>
-</div>
-
 <div class="tab-nav">
-  <button class="tab active" onclick="showTab('preseason')">Pre-Season</button>
-  <button class="tab" onclick="showTab('phase1')">Phase 1</button>
-  <button class="tab" onclick="showTab('phase2')">Phase 2</button>
-  <button class="tab" onclick="showTab('strength')">Strength</button>
-  <button class="tab" onclick="showTab('cues')">Cues</button>
-  <button class="tab" onclick="showTab('targets')">Targets</button>
-  <button class="tab" onclick="showTab('heat')">Heat</button>
+  <button class="tab active" onclick="showTab('preseason', event)">Pre-Season</button>
+  <button class="tab" onclick="showTab('phase1', event)">Phase 1</button>
+  <button class="tab" onclick="showTab('phase2', event)">Phase 2</button>
+  <button class="tab" onclick="showTab('strength', event)">Strength</button>
+  <button class="tab" onclick="showTab('cues', event)">Cues</button>
+  <button class="tab" onclick="showTab('targets', event)">Targets</button>
+  <button class="tab" onclick="showTab('heat', event)">Heat</button>
+  <button class="tab" onclick="showTab('rest', event)">Rest Days</button>
+  <button class="tab" onclick="showTab('recipes', event)">Recipes</button>
 </div>
 
 <!-- ========== PRE-SEASON ========== -->
@@ -520,10 +901,8 @@
     <div class="phase-title">Pre-Season — Gym Only</div>
     <div class="phase-dates">May 2 – Jun 12 · 6 Weeks · Mon + Thu</div>
   </div>
-
   <div class="week-selector" id="preseason-weeks"></div>
 
-  <!-- MONDAY -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div>
@@ -533,25 +912,17 @@
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="field-group">
+      <div class="field-group pt-8">
         <div class="field-label">Session Date</div>
         <input type="text" class="log-field" data-key="pre_mon_date_WK" placeholder="e.g. May 5">
       </div>
       <div class="field-group">
-        <div class="field-label">Session Rating (1–5)</div>
+        <div class="field-label">Session Rating</div>
         <div class="rating-row" data-key="pre_mon_rating_WK">
-          <span class="star" onclick="setRating(this,1)">★</span>
-          <span class="star" onclick="setRating(this,2)">★</span>
-          <span class="star" onclick="setRating(this,3)">★</span>
-          <span class="star" onclick="setRating(this,4)">★</span>
-          <span class="star" onclick="setRating(this,5)">★</span>
+          <span class="star" onclick="setRating(this,1)">★</span><span class="star" onclick="setRating(this,2)">★</span><span class="star" onclick="setRating(this,3)">★</span><span class="star" onclick="setRating(this,4)">★</span><span class="star" onclick="setRating(this,5)">★</span>
         </div>
       </div>
-
-      <div id="preseason-mon-exercises">
-        <!-- JS fills this -->
-      </div>
-
+      <div id="preseason-mon-exercises"></div>
       <div class="field-group">
         <div class="field-label">Session Notes</div>
         <textarea class="log-field" data-key="pre_mon_notes_WK" placeholder="How it felt, issues, energy…" rows="2"></textarea>
@@ -559,7 +930,6 @@
     </div>
   </div>
 
-  <!-- THURSDAY -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div>
@@ -569,48 +939,75 @@
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="field-group">
+      <div class="field-group pt-8">
         <div class="field-label">Session Date</div>
         <input type="text" class="log-field" data-key="pre_thu_date_WK" placeholder="e.g. May 8">
       </div>
       <div class="field-group">
-        <div class="field-label">Session Rating (1–5)</div>
+        <div class="field-label">Session Rating</div>
         <div class="rating-row" data-key="pre_thu_rating_WK">
-          <span class="star" onclick="setRating(this,1)">★</span>
-          <span class="star" onclick="setRating(this,2)">★</span>
-          <span class="star" onclick="setRating(this,3)">★</span>
-          <span class="star" onclick="setRating(this,4)">★</span>
-          <span class="star" onclick="setRating(this,5)">★</span>
+          <span class="star" onclick="setRating(this,1)">★</span><span class="star" onclick="setRating(this,2)">★</span><span class="star" onclick="setRating(this,3)">★</span><span class="star" onclick="setRating(this,4)">★</span><span class="star" onclick="setRating(this,5)">★</span>
         </div>
       </div>
-
       <div id="preseason-thu-exercises"></div>
-
       <div class="field-group">
         <div class="field-label">Session Notes</div>
         <textarea class="log-field" data-key="pre_thu_notes_WK" placeholder="How it felt, issues, energy…" rows="2"></textarea>
       </div>
     </div>
   </div>
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div>
+        <div class="session-day rest">Tuesday · Wednesday · Friday · Saturday · Sunday</div>
+        <div class="session-type">Rest Days — Active Recovery Options</div>
+      </div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge" style="margin-top:12px;">Pre-Season: Only Mon + Thu are training days. Everything else is recovery.</div>
+      <div class="exercise-row">
+        <div class="ex-name">Light Walking (20–40 min)</div>
+        <div class="ex-target">Any day · Easy pace</div>
+        <div class="ex-note">Neighbourhood walk, convenience store run, park loop. Keeps blood moving without adding load. Not a workout — a stroll.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Foam Rolling / Mobility (10–15 min)</div>
+        <div class="ex-target">Day after gym · Focus on quads, hamstrings, calves, hip flexors</div>
+        <div class="ex-note">Slow rolls, 30–60 sec per spot. Add 90/90 hip stretch, pigeon pose, ankle circles. Good before sleep.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Pool Float / Easy Swim (30 min)</div>
+        <div class="ex-target">Any rest day · Zero impact</div>
+        <div class="ex-note">Not laps — just being in the water. Gentle kick drills or easy breaststroke. Hydrostatic pressure reduces muscle soreness. Perfect for summer heat.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Cold Shower / Contrast Shower</div>
+        <div class="ex-target">Morning after hard session</div>
+        <div class="ex-note">2 min warm → 30 sec cold → repeat 3×. Reduces DOMS and feels refreshing in Tokyo heat. Not mandatory but effective.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Breathing / Parasympathetic Reset (5–10 min)</div>
+        <div class="ex-target">Evening · Any rest day</div>
+        <div class="ex-note">Box breathing (4 in, 4 hold, 4 out, 4 hold) or 4-7-8 breathing. Lowers cortisol, improves sleep quality. Especially useful if Tokyo heat is affecting sleep.</div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<!-- ========== PHASE 1 ========== -->
 <div class="content section" id="tab-phase1">
   <div class="phase-header">
     <div class="phase-title">Phase 1 — Speed-Strength</div>
     <div class="phase-dates">Jun 13 – Jul 17 · Weeks 7–11 · 6 sessions/wk</div>
   </div>
-
   <div class="week-selector" id="phase1-weeks"></div>
 
-  <!-- MON GYM -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div><div class="session-day gym">Monday</div><div class="session-type">Lower Power · Gym</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="field-group">
+      <div class="field-group pt-8">
         <div class="field-label">Date / Conditions</div>
         <input type="text" class="log-field" data-key="p1_mon_date_WK" placeholder="Date">
       </div>
@@ -622,14 +1019,13 @@
     </div>
   </div>
 
-  <!-- TUE AM TRACK -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div><div class="session-day track">Tuesday AM</div><div class="session-type">Acceleration · Track</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="warmup-badge" style="margin-top:12px;">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
         <div class="field-group">
           <div class="field-label">Time of Day</div>
@@ -654,14 +1050,13 @@
     </div>
   </div>
 
-  <!-- TUE PM GYM -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div><div class="session-day gym">Tuesday PM</div><div class="session-type">Upper + Core · Gym</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div id="p1-tupm-exercises"></div>
+      <div id="p1-tupm-exercises" style="padding-top:4px;"></div>
       <div class="field-group">
         <div class="field-label">Notes</div>
         <textarea class="log-field" data-key="p1_tupm_notes_WK" rows="2" placeholder="Load, feel…"></textarea>
@@ -669,14 +1064,13 @@
     </div>
   </div>
 
-  <!-- THU TRACK -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
-      <div><div class="session-day track">Thursday</div><div class="session-type">Max Velocity · Track ⚡ KEY SESSION</div></div>
+      <div><div class="session-day track">Thursday</div><div class="session-type">Max Velocity · Track — Key Session</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="warmup-badge" style="margin-top:12px;">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
         <div class="field-group">
           <div class="field-label">Time</div>
@@ -688,10 +1082,30 @@
         </div>
       </div>
       <div class="exercise-row">
-        <div class="ex-name">Flying 60m (40m build + 60m fly)</div>
+        <div class="ex-name-wrap">
+          <div class="ex-name" onclick="toggleAlt(this)">Flying 60m (40m build + 60m fly)</div>
+          <span class="ex-muscle-tag">Max Velocity</span>
+        </div>
         <div class="ex-target">4 reps · 6–7 min rest · 98%+</div>
         <div class="ex-note">Snap up. Hot ground. Tall. This is THE session.</div>
-        <div class="sets-label">Rep times (sec)</div>
+        <div class="ex-info-row">
+          <button class="ex-info-btn sprint-btn" onclick="toggleSprintPanel(this)">Sprint benefit ▾</button>
+        </div>
+        <div class="alt-select-wrap">
+          <div class="alt-select-label">Alternative ▾</div>
+          <select class="alt-select" onchange="this.closest('.exercise-row').querySelector('.ex-name').textContent = this.value || 'Flying 60m (40m build + 60m fly)'">
+            <option value="">— use original —</option>
+            <option value="Flying 30m (20m build + 30m fly)">Flying 30m (20m build + 30m fly)</option>
+            <option value="Flying 40m on a curve">Flying 40m on a curve</option>
+            <option value="Resisted 60m (sled, light)">Resisted 60m (sled, light)</option>
+          </select>
+        </div>
+        <div class="sprint-panel">
+          <div class="sprint-panel-title">Why this builds sprint speed</div>
+          <div class="sprint-muscle">Neuromuscular System — Max Velocity Mechanics</div>
+          <div class="sprint-why">Flying runs train your nervous system to produce force at maximum stride frequency with a fully warmed, pre-activated neuromuscular system. The 40m build ensures you hit the fly zone at true top speed — something impossible from a standing start. This is the closest gym-free simulation of the 60–100m phase of your race.</div>
+        </div>
+        <div class="sets-label" style="margin-top:8px;">Rep times (sec)</div>
         <div class="sets-grid">
           <div class="set-input-wrap"><div class="set-num">Rep 1</div><input type="text" class="set-input log-field" data-key="p1_thu_fly60_1_WK" placeholder="—"></div>
           <div class="set-input-wrap"><div class="set-num">Rep 2</div><input type="text" class="set-input log-field" data-key="p1_thu_fly60_2_WK" placeholder="—"></div>
@@ -712,14 +1126,13 @@
     </div>
   </div>
 
-  <!-- FRI GYM -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div><div class="session-day gym">Friday</div><div class="session-type">Posterior Chain · Gym</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div id="p1-fri-exercises"></div>
+      <div id="p1-fri-exercises" style="padding-top:4px;"></div>
       <div class="field-group">
         <div class="field-label">Notes</div>
         <textarea class="log-field" data-key="p1_fri_notes_WK" rows="2" placeholder="Load, eccentrics feel…"></textarea>
@@ -727,19 +1140,38 @@
     </div>
   </div>
 
-  <!-- SAT TRACK -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div><div class="session-day track">Saturday</div><div class="session-type">Speed Endurance · Track</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="warmup-badge" style="margin-top:12px;">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
       <div class="exercise-row">
-        <div class="ex-name">Tempo 200m @ 75–80%</div>
+        <div class="ex-name-wrap">
+          <div class="ex-name" onclick="toggleAlt(this)">Tempo 200m @ 75–80%</div>
+          <span class="ex-muscle-tag">Speed Endurance</span>
+        </div>
         <div class="ex-target">5–6 reps · 90 sec rest</div>
         <div class="ex-note">Controlled. Builds back-end 200m capacity.</div>
-        <div class="sets-label">Rep times (sec)</div>
+        <div class="ex-info-row">
+          <button class="ex-info-btn sprint-btn" onclick="toggleSprintPanel(this)">Sprint benefit ▾</button>
+        </div>
+        <div class="alt-select-wrap">
+          <div class="alt-select-label">Alternative ▾</div>
+          <select class="alt-select" onchange="this.closest('.exercise-row').querySelector('.ex-name').textContent = this.value || 'Tempo 200m @ 75–80%'">
+            <option value="">— use original —</option>
+            <option value="Tempo 150m @ 75%">Tempo 150m @ 75%</option>
+            <option value="3 × 300m @ 70%">3 × 300m @ 70%</option>
+            <option value="Broken 200m (100+100, 30s gap)">Broken 200m (100+100, 30s gap)</option>
+          </select>
+        </div>
+        <div class="sprint-panel">
+          <div class="sprint-panel-title">Why this builds sprint speed</div>
+          <div class="sprint-muscle">Aerobic-Glycolytic System — Speed Endurance Base</div>
+          <div class="sprint-why">Submaximal 200m reps build your lactate threshold and teach the body to sustain sprint mechanics under fatigue. This directly addresses the back half of the 200m and the final 100m of a 400m. Running at 75–80% with short rest keeps volume high without CNS fatigue from maximal sprinting.</div>
+        </div>
+        <div class="sets-label" style="margin-top:8px;">Rep times (sec)</div>
         <div class="sets-grid">
           <div class="set-input-wrap"><div class="set-num">R1</div><input type="text" class="set-input log-field" data-key="p1_sat_200_1_WK" placeholder="—"></div>
           <div class="set-input-wrap"><div class="set-num">R2</div><input type="text" class="set-input log-field" data-key="p1_sat_200_2_WK" placeholder="—"></div>
@@ -757,9 +1189,49 @@
       </div>
     </div>
   </div>
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div>
+        <div class="session-day rest">Wednesday · Sunday</div>
+        <div class="session-type">Full Rest — Active Recovery</div>
+      </div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge" style="margin-top:12px;">Phase 1: Wed is mid-week CNS recovery. Sunday is full reset before Monday's big lift.</div>
+      <div class="exercise-row">
+        <div class="ex-name">Mobility Flow (15 min)</div>
+        <div class="ex-target">Wednesday · Morning or evening</div>
+        <div class="ex-note">Hip 90/90 rotations → lying hamstring stretch → pigeon pose → thoracic rotations → cat-cow. Slow and deliberate. Focus on any stiffness from Tue AM + PM double.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Contrast Shower</div>
+        <div class="ex-target">Wednesday morning</div>
+        <div class="ex-note">After Tuesday's double session (AM track + PM gym), a contrast shower Wednesday morning reduces DOMS significantly. 3 rounds of warm/cold. Quick and effective.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Easy Walk + Sunlight (20–30 min)</div>
+        <div class="ex-target">Sunday morning · Before 9am or after 6pm</div>
+        <div class="ex-note">Gentle movement, morning light exposure resets circadian rhythm. Don't count steps, don't track it — just move without pressure before the week begins again.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Pool Recovery or Ofuro (20–30 min)</div>
+        <div class="ex-target">Either rest day</div>
+        <div class="ex-note">Ofuro (Japanese bath) at 40°C for 15 min improves circulation and reduces muscle tension. Alternatively, pool float. Both work well for recovery in this environment.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Legs-Up-The-Wall (10 min)</div>
+        <div class="ex-target">Evening · Either rest day</div>
+        <div class="ex-note">Lie on floor, legs straight up wall. Drains lactic acid pooling, reduces ankle/calf swelling from Tokyo heat, and activates the parasympathetic system. Best done before sleep.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Light Ankle Pogos + Band Work (8 min)</div>
+        <div class="ex-target">Wednesday optional — only if feeling good</div>
+        <div class="ex-note">2 × 20 easy ankle pogos just to maintain elastic stiffness feel. Add banded hip abduction 2 × 15. Not a session — a nervous system check-in. Skip if tired.</div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<!-- ========== PHASE 2 ========== -->
 <div class="content section" id="tab-phase2">
   <div class="phase-header">
     <div class="phase-title">Phase 2 — Specific Speed</div>
@@ -767,23 +1239,89 @@
   </div>
   <div class="week-selector" id="phase2-weeks"></div>
 
-  <!-- THU FLYING 60s detail -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
-      <div><div class="session-day track">Thursday</div><div class="session-type">Max Velocity · 98%+ ⚡ KEY SESSION</div></div>
+      <div><div class="session-day gym">Monday</div><div class="session-type">Lower Power · Gym</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div id="p2-mon-exercises" style="padding-top:4px;"></div>
+      <div class="field-group">
+        <div class="field-label">Notes</div>
+        <textarea class="log-field" data-key="p2_mon_notes_WK" rows="2" placeholder="Load, feel, depth…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Tuesday AM</div><div class="session-type">Sprint Speed · Track</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge" style="margin-top:12px;">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="exercise-row">
+        <div class="ex-name-wrap">
+          <div class="ex-name">Starts → 30m</div>
+          <span class="ex-muscle-tag">Acceleration</span>
+        </div>
+        <div class="ex-target">5 reps · 5 min rest</div>
+        <div class="sets-label" style="margin-top:4px;">Notes on drive phase</div>
+        <textarea class="set-input log-field" data-key="p2_tuam_starts_WK" placeholder="Body angle, push feel…" style="width:100%;min-height:40px;font-size:12px;margin-top:4px;"></textarea>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name-wrap">
+          <div class="ex-name">60m Sprints @ 95%+</div>
+          <span class="ex-muscle-tag">Speed</span>
+        </div>
+        <div class="ex-target">4–5 reps · 5 min rest</div>
+        <div class="sets-label" style="margin-top:4px;">Rep times (sec)</div>
+        <div class="sets-grid">
+          <div class="set-input-wrap"><div class="set-num">R1</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_1_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R2</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_2_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R3</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_3_WK" placeholder="—"></div>
+          <div class="set-input-wrap"><div class="set-num">R4</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_4_WK" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name-wrap">
+          <div class="ex-name">120m Build → Fly</div>
+          <span class="ex-muscle-tag">Transition</span>
+        </div>
+        <div class="ex-target">3 reps · 8 min rest</div>
+        <div class="field-label" style="margin-top:6px;">Notes</div>
+        <textarea class="set-input log-field" data-key="p2_tuam_120_WK" placeholder="Transition feel…" style="width:100%;min-height:40px;font-size:12px;margin-top:4px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day track">Thursday</div><div class="session-type">Max Velocity · 98%+ — Key Session</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="warmup-badge" style="margin-top:12px;">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
         <div class="field-group"><div class="field-label">Time</div><input type="text" class="log-field" data-key="p2_thu_time_WK" placeholder="e.g. 6:30am"></div>
         <div class="field-group"><div class="field-label">Temp (°C)</div><input type="text" class="log-field" data-key="p2_thu_temp_WK" placeholder="e.g. 34°C"></div>
       </div>
       <div class="exercise-row">
-        <div class="ex-name">Flying 60m (40m build + 60m fly)</div>
-        <div class="ex-target">4 reps · 6–7 min rest · 98%+ intensity</div>
+        <div class="ex-name-wrap">
+          <div class="ex-name">Flying 60m (40m build + 60m fly)</div>
+          <span class="ex-muscle-tag">Max Velocity</span>
+        </div>
+        <div class="ex-target">4 reps · 6–7 min rest · 98%+</div>
         <div class="ex-note">This is the session that breaks 11.5. Full commitment.</div>
-        <div class="sets-label">Rep times (sec)</div>
+        <div class="ex-info-row">
+          <button class="ex-info-btn sprint-btn" onclick="toggleSprintPanel(this)">Sprint benefit ▾</button>
+        </div>
+        <div class="sprint-panel">
+          <div class="sprint-panel-title">Why this builds sprint speed</div>
+          <div class="sprint-muscle">Neuromuscular System — Max Velocity Mechanics</div>
+          <div class="sprint-why">Flying runs train your nervous system to produce force at maximum stride frequency. In Phase 2, the intensity is higher and the stimulus sharper — this is where peak speed improvements are locked in before competition.</div>
+        </div>
+        <div class="sets-label" style="margin-top:8px;">Rep times (sec)</div>
         <div class="sets-grid">
           <div class="set-input-wrap"><div class="set-num">Rep 1</div><input type="text" class="set-input log-field" data-key="p2_thu_fly60_1_WK" placeholder="—"></div>
           <div class="set-input-wrap"><div class="set-num">Rep 2</div><input type="text" class="set-input log-field" data-key="p2_thu_fly60_2_WK" placeholder="—"></div>
@@ -804,19 +1342,43 @@
     </div>
   </div>
 
-  <!-- SAT 150s/200s -->
+  <div class="session-card">
+    <div class="session-header" onclick="toggleSession(this)">
+      <div><div class="session-day gym">Friday</div><div class="session-type">Posterior Chain · Gym</div></div>
+      <div class="session-toggle">▼</div>
+    </div>
+    <div class="session-body">
+      <div id="p2-fri-exercises" style="padding-top:4px;"></div>
+      <div class="field-group">
+        <div class="field-label">Notes</div>
+        <textarea class="log-field" data-key="p2_fri_notes_WK" rows="2" placeholder="Eccentric quality, hip thrust…"></textarea>
+      </div>
+    </div>
+  </div>
+
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
       <div><div class="session-day track">Saturday</div><div class="session-type">Speed Endurance · 150m / 200m</div></div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="warmup-badge" style="margin-top:12px;">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
       <div class="exercise-row">
-        <div class="ex-name">150m @ 90–95% (Wks 13–16)</div>
+        <div class="ex-name-wrap">
+          <div class="ex-name">150m @ 90–95% (Wks 13–16)</div>
+          <span class="ex-muscle-tag">Speed Endurance</span>
+        </div>
         <div class="ex-target">4 reps · 8 min rest</div>
         <div class="ex-note">Forces elastic mechanics into deep lactate fatigue. Where 24.02 → 23.5.</div>
-        <div class="sets-label">Rep times (sec)</div>
+        <div class="ex-info-row">
+          <button class="ex-info-btn sprint-btn" onclick="toggleSprintPanel(this)">Sprint benefit ▾</button>
+        </div>
+        <div class="sprint-panel">
+          <div class="sprint-panel-title">Why this builds sprint speed</div>
+          <div class="sprint-muscle">Glycolytic System — Race-Pace Endurance</div>
+          <div class="sprint-why">At 90–95% over 150m, you're running at near-race speed while accumulating lactate. This trains your body to maintain sprint mechanics when fatigued — the exact demand of the final 50m of a 200m. Directly translates to a faster back half and reduced fade.</div>
+        </div>
+        <div class="sets-label" style="margin-top:8px;">Rep times (sec)</div>
         <div class="sets-grid">
           <div class="set-input-wrap"><div class="set-num">R1</div><input type="text" class="set-input log-field" data-key="p2_sat_150_1_WK" placeholder="—"></div>
           <div class="set-input-wrap"><div class="set-num">R2</div><input type="text" class="set-input log-field" data-key="p2_sat_150_2_WK" placeholder="—"></div>
@@ -825,9 +1387,12 @@
         </div>
       </div>
       <div class="exercise-row">
-        <div class="ex-name">2 × 200m @ 95% (Wk 15 + 17 only)</div>
-        <div class="ex-target">2 reps · 15 min rest · Race simulation</div>
-        <div class="sets-label">Times (sec)</div>
+        <div class="ex-name-wrap">
+          <div class="ex-name">2 × 200m @ 95% (Wk 15 + 17 only)</div>
+          <span class="ex-muscle-tag">Race Simulation</span>
+        </div>
+        <div class="ex-target">2 reps · 15 min rest</div>
+        <div class="sets-label" style="margin-top:6px;">Times (sec)</div>
         <div class="sets-grid">
           <div class="set-input-wrap"><div class="set-num">Rep 1</div><input type="text" class="set-input log-field" data-key="p2_sat_200_1_WK" placeholder="—"></div>
           <div class="set-input-wrap"><div class="set-num">Rep 2</div><input type="text" class="set-input log-field" data-key="p2_sat_200_2_WK" placeholder="—"></div>
@@ -837,81 +1402,52 @@
         <div class="field-label">What felt good / broke down?</div>
         <textarea class="log-field" data-key="p2_sat_notes_WK" rows="2" placeholder="Mechanics at 100m, fade, arm drive…"></textarea>
       </div>
-    </div>
-  </div>
-
-  <!-- TUE AM TRACK P2 -->
   <div class="session-card">
     <div class="session-header" onclick="toggleSession(this)">
-      <div><div class="session-day track">Tuesday AM</div><div class="session-type">Sprint Speed · Track</div></div>
+      <div>
+        <div class="session-day rest">Wednesday · Sunday</div>
+        <div class="session-type">Full Rest — Pre-Competition Recovery Protocol</div>
+      </div>
       <div class="session-toggle">▼</div>
     </div>
     <div class="session-body">
-      <div class="warmup-badge">⚡ Complete Elastic Stiffness Warmup first (12 min)</div>
+      <div class="warmup-badge" style="margin-top:12px;">Phase 2: Recovery quality directly determines race quality. Treat these days seriously.</div>
       <div class="exercise-row">
-        <div class="ex-name">Starts → 30m</div>
-        <div class="ex-target">5 reps · 5 min rest</div>
-        <div class="sets-label">Notes on drive phase</div>
-        <textarea class="set-input log-field" data-key="p2_tuam_starts_WK" placeholder="Body angle, push feel…" style="width:100%;min-height:40px;font-size:12px;margin-top:4px;"></textarea>
-      </div>
-      <div class="exercise-row">
-        <div class="ex-name">60m Sprints @ 95%+</div>
-        <div class="ex-target">4–5 reps · 5 min rest</div>
-        <div class="sets-label">Rep times (sec)</div>
-        <div class="sets-grid">
-          <div class="set-input-wrap"><div class="set-num">R1</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_1_WK" placeholder="—"></div>
-          <div class="set-input-wrap"><div class="set-num">R2</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_2_WK" placeholder="—"></div>
-          <div class="set-input-wrap"><div class="set-num">R3</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_3_WK" placeholder="—"></div>
-          <div class="set-input-wrap"><div class="set-num">R4</div><input type="text" class="set-input log-field" data-key="p2_tuam_60_4_WK" placeholder="—"></div>
-        </div>
+        <div class="ex-name">Full Mobility Session (20 min)</div>
+        <div class="ex-target">Wednesday · Non-negotiable</div>
+        <div class="ex-note">Hip flexor couch stretch (2 min each) → seated hamstring → pigeon → thoracic open book → ankle dorsiflexion drill. After Tuesday's double session, this prevents stiffness compounding over the week.</div>
       </div>
       <div class="exercise-row">
-        <div class="ex-name">120m Build → Fly</div>
-        <div class="ex-target">3 reps · 8 min rest</div>
-        <div class="field-label" style="margin-top:6px;">Notes</div>
-        <textarea class="set-input log-field" data-key="p2_tuam_120_WK" placeholder="Transition feel…" style="width:100%;min-height:40px;font-size:12px;margin-top:4px;"></textarea>
+        <div class="ex-name">Epsom Salt Bath or Ofuro (20 min)</div>
+        <div class="ex-target">Wednesday evening or Sunday</div>
+        <div class="ex-note">Magnesium absorption through skin reduces muscle soreness. Japanese ofuro at 40°C is ideal. Add a cup of Epsom salt if using a home bath. Don't rush it — treat it as a ritual.</div>
       </div>
-    </div>
-  </div>
-
-  <!-- MON GYM P2 -->
-  <div class="session-card">
-    <div class="session-header" onclick="toggleSession(this)">
-      <div><div class="session-day gym">Monday</div><div class="session-type">Lower Power · Gym</div></div>
-      <div class="session-toggle">▼</div>
-    </div>
-    <div class="session-body">
-      <div id="p2-mon-exercises"></div>
-      <div class="field-group">
-        <div class="field-label">Notes</div>
-        <textarea class="log-field" data-key="p2_mon_notes_WK" rows="2" placeholder="Load, feel, depth…"></textarea>
+      <div class="exercise-row">
+        <div class="ex-name">Mental Rehearsal (10 min)</div>
+        <div class="ex-target">Sunday · Pre-race weeks</div>
+        <div class="ex-note">Visualise your race from start to finish with eyes closed. Feel the blocks, the drive phase, the transition. Hear "SNAP UP." Research shows this activates the same neural pathways as physical practice. Especially useful from Wk 14 onwards.</div>
       </div>
-    </div>
-  </div>
-
-  <!-- FRI GYM P2 -->
-  <div class="session-card">
-    <div class="session-header" onclick="toggleSession(this)">
-      <div><div class="session-day gym">Friday</div><div class="session-type">Posterior Chain · Gym</div></div>
-      <div class="session-toggle">▼</div>
-    </div>
-    <div class="session-body">
-      <div id="p2-fri-exercises"></div>
-      <div class="field-group">
-        <div class="field-label">Notes</div>
-        <textarea class="log-field" data-key="p2_fri_notes_WK" rows="2" placeholder="Eccentric quality, hip thrust…"></textarea>
+      <div class="exercise-row">
+        <div class="ex-name">Legs-Up-The-Wall + Breathing (15 min)</div>
+        <div class="ex-target">Evening · Either rest day</div>
+        <div class="ex-note">Legs up wall for circulatory recovery + 4-7-8 breathing pattern to drive parasympathetic response. Sets up deep sleep. Best done 60–90 min before bed.</div>
+      </div>
+      <div class="exercise-row">
+        <div class="ex-name">Gentle Jog + Strides (20 min) — Optional</div>
+        <div class="ex-target">Sunday · Only if feeling fresh</div>
+        <div class="ex-note">10 min easy jog then 3 × 40m at 75%. This is a nervous system check-in, not a session. If legs feel heavy or stiff, skip the strides. Never force it in Phase 2.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ========== STRENGTH ========== -->
+
 <div class="content section" id="tab-strength">
   <div class="section-title">Strength Progression</div>
   <div class="section-sub">Targets by phase. Add 2.5–5 kg every 2–3 weeks.</div>
 
-  <div style="margin-bottom:16px;">
-    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Hack Squat</div>
+  <div style="margin-bottom:14px;">
+    <div class="section-title" style="font-size:13px;color:var(--accent-light);">Hack Squat</div>
     <table class="prog-table">
       <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
       <tr><td class="wk">Pre Wks 1–3</td><td class="load">50–60 kg × 8 × 3</td><td class="notes">Learn movement, full depth</td></tr>
@@ -926,8 +1462,8 @@
     </table>
   </div>
 
-  <div style="margin-bottom:16px;">
-    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Hip Thrust (Smith)</div>
+  <div style="margin-bottom:14px;">
+    <div class="section-title" style="font-size:13px;color:var(--accent-light);">Hip Thrust (Smith)</div>
     <table class="prog-table">
       <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
       <tr><td class="wk">Pre-season</td><td class="load">40–50 kg × 10 × 3</td><td class="notes">Squeeze hard at top</td></tr>
@@ -938,8 +1474,8 @@
     </table>
   </div>
 
-  <div style="margin-bottom:16px;">
-    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Romanian Deadlift (Friday)</div>
+  <div style="margin-bottom:14px;">
+    <div class="section-title" style="font-size:13px;color:var(--accent-light);">Romanian Deadlift (Friday)</div>
     <table class="prog-table">
       <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
       <tr><td class="wk">Pre-season</td><td class="load">40–50 kg × 10 × 3</td><td class="notes">3-sec eccentric every rep</td></tr>
@@ -949,8 +1485,8 @@
     </table>
   </div>
 
-  <div style="margin-bottom:16px;">
-    <div class="section-title" style="font-size:15px;color:var(--accent);margin-top:0;">Hamstring Curl (Eccentric)</div>
+  <div style="margin-bottom:14px;">
+    <div class="section-title" style="font-size:13px;color:var(--accent-light);">Hamstring Curl (Eccentric)</div>
     <table class="prog-table">
       <tr><th>Period</th><th>Target</th><th>Notes</th></tr>
       <tr><td class="wk">Pre-season</td><td class="load">Light × 12 × 3</td><td class="notes">Learn the movement, full ROM</td></tr>
@@ -976,9 +1512,9 @@
     <div class="cue-think">Gradually tall. Start thinking about stiffness. Arm drive active and compact.</div>
     <div class="cue-avoid">Sudden posture change. Tensing up.</div>
   </div>
-  <div class="cue-card" style="border-color:rgba(232,255,0,0.3);">
-    <div class="cue-phase" style="font-size:14px;">60–100m · MAX VELOCITY ⚡</div>
-    <div style="font-size:16px;font-weight:700;color:var(--accent);margin:6px 0;">"SNAP UP · HOT GROUND · TALL & BOUNCE"</div>
+  <div class="cue-card" style="border-left:3px solid var(--accent);">
+    <div class="cue-phase">60–100m · Max Velocity</div>
+    <div style="font-size:14px;font-weight:600;color:var(--accent);margin:5px 0 6px;">"SNAP UP · HOT GROUND · TALL & BOUNCE"</div>
     <div class="cue-think">Pull foot off ground fast. Short, sharp contacts. No hip drop.</div>
     <div class="cue-avoid">Pushing down. Overstriding. Sitting into hips. Grinding.</div>
   </div>
@@ -989,8 +1525,8 @@
   </div>
 
   <div class="divider"></div>
-  <div class="section-title" style="font-size:16px;">Elastic Stiffness Warmup</div>
-  <div class="section-sub">Do this before EVERY track session. Focus on the SOUND — sharp tap, not a thud.</div>
+  <div class="section-title" style="font-size:13px;">Elastic Stiffness Warmup</div>
+  <div class="section-sub">Before every track session. Focus on the sound — sharp tap, not a thud.</div>
   <div class="cue-card">
     <div class="cue-think">10 min easy jog + dynamic → Ankle pogos 2-ft (3×20) → Single-leg pogos (3×10 each) → High-freq A-skip (3×20m) → Wall drill fast alternating (3×10 each) → Build strides with snap cue (3×40m @ 85%)</div>
   </div>
@@ -1000,51 +1536,51 @@
 <div class="content section" id="tab-targets">
   <div class="section-title">Season Targets</div>
 
-  <div class="session-card" style="margin-bottom:12px;">
+  <div class="session-card" style="margin-bottom:10px;">
     <div style="padding:14px;">
-      <div class="section-title" style="font-size:15px;margin:0 0 10px;">Sprint Goals</div>
+      <div class="section-title" style="font-size:13px;margin:0 0 10px;">Sprint Goals</div>
       <div class="target-row">
         <div><div class="target-event">100m</div><div class="target-current">PR: 11.8s</div></div>
-        <div class="target-vals"><div class="target-goal">11.4–11.5s</div><div class="target-current">Ceiling: 11.3s</div></div>
+        <div><div class="target-goal">11.4–11.5s</div><div class="target-ceiling">Ceiling: 11.3s</div></div>
       </div>
       <div class="target-row">
         <div><div class="target-event">200m</div><div class="target-current">PR: 24.02s</div></div>
-        <div class="target-vals"><div class="target-goal">23.5–23.7s</div><div class="target-current">Ceiling: 23.3s</div></div>
+        <div><div class="target-goal">23.5–23.7s</div><div class="target-ceiling">Ceiling: 23.3s</div></div>
       </div>
       <div class="target-row">
         <div><div class="target-event">400m</div><div class="target-current">PR: 52.5s</div></div>
-        <div class="target-vals"><div class="target-goal">51.0–51.5s</div><div class="target-current">Ceiling: 50.5s</div></div>
+        <div><div class="target-goal">51.0–51.5s</div><div class="target-ceiling">Ceiling: 50.5s</div></div>
       </div>
       <div class="target-row">
         <div><div class="target-event">4×100 Split</div><div class="target-current">PR: 10.6–10.8s</div></div>
-        <div class="target-vals"><div class="target-goal">10.3–10.5s</div><div class="target-current">Ceiling: Sub 10.3s</div></div>
+        <div><div class="target-goal">10.3–10.5s</div><div class="target-ceiling">Ceiling: Sub 10.3s</div></div>
       </div>
     </div>
   </div>
 
-  <div class="session-card" style="margin-bottom:12px;">
+  <div class="session-card" style="margin-bottom:10px;">
     <div style="padding:14px;">
-      <div class="section-title" style="font-size:15px;margin:0 0 10px;">Strength Goals</div>
+      <div class="section-title" style="font-size:13px;margin:0 0 10px;">Strength Goals</div>
       <div class="target-row">
         <div><div class="target-event">Hack Squat</div><div class="target-current">80 kg × 7</div></div>
-        <div class="target-vals"><div class="target-goal">95 kg × 3</div></div>
+        <div><div class="target-goal">95 kg × 3</div></div>
       </div>
       <div class="target-row">
         <div><div class="target-event">Hip Thrust</div><div class="target-current">Unknown</div></div>
-        <div class="target-vals"><div class="target-goal">100 kg × 5</div></div>
+        <div><div class="target-goal">100 kg × 5</div></div>
       </div>
       <div class="target-row">
         <div><div class="target-event">RDL (Friday)</div><div class="target-current">~70–75 kg</div></div>
-        <div class="target-vals"><div class="target-goal">85 kg × 5</div></div>
+        <div><div class="target-goal">85 kg × 5</div></div>
       </div>
       <div class="target-row">
         <div><div class="target-event">Vertical Jump</div><div class="target-current">69 cm</div></div>
-        <div class="target-vals"><div class="target-goal">73–75 cm</div></div>
+        <div><div class="target-goal">73–75 cm</div></div>
       </div>
     </div>
   </div>
 
-  <div class="section-title" style="font-size:16px;">Mid-Summer Check-in (Wk 11–12)</div>
+  <div class="section-title" style="font-size:13px;">Mid-Summer Check-in (Wk 11–12)</div>
   <div class="session-card">
     <div style="padding:14px;">
       <div id="checklist-items"></div>
@@ -1065,7 +1601,7 @@
     <div class="tip-icon">💧</div>
     <div><div class="tip-title">Hydration</div><div class="tip-body">1.5L minimum at track. Start 500ml 30 min before. Electrolytes for sessions over 60 min.</div></div>
   </div>
-  <div class="tip-card" style="border-color:rgba(255,77,0,0.3);">
+  <div class="tip-card warn">
     <div class="tip-icon">🌡️</div>
     <div><div class="tip-title">Over 35°C Rule</div><div class="tip-body">Cut sprint volume by 30%. Add 1 min to rest periods. 4 good reps > 6 bad ones.</div></div>
   </div>
@@ -1075,18 +1611,357 @@
   </div>
   <div class="tip-card">
     <div class="tip-icon">⭐</div>
-    <div><div class="tip-title">Feel Ratings</div><div class="tip-body">Rate every session 1–5. Two consecutive sessions at 2 or below = take extra rest day. Humidity impairs performance even at moderate temps.</div></div>
+    <div><div class="tip-title">Feel Ratings</div><div class="tip-body">Rate every session 1–5. Two consecutive sessions at 2 or below = take extra rest day.</div></div>
   </div>
 </div>
 
-<div class="saved-toast" id="toast">✓ SAVED</div>
+<div class="saved-toast" id="toast">✓ Saved</div>
 
-<script>
-// ===== DATA =====
+<!-- ========== REST DAYS OVERVIEW ========== -->
+<div class="content section" id="tab-rest">
+  <div class="section-title">Rest Day Protocols</div>
+  <div class="section-sub">Recovery is where adaptation happens. Protect these days.</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🧘</div>
+    <div><div class="tip-title">The Rule</div><div class="tip-body">Rest days are not wasted training days. CNS fatigue is real and invisible. The body adapts during recovery, not during the session. Treat rest as part of the programme.</div></div>
+  </div>
+
+  <div class="section-title" style="font-size:13px;">Daily Recovery Menu — Pick 1–3</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🚶</div>
+    <div><div class="tip-title">Easy Walk (20–40 min)</div><div class="tip-body">Before 9am or after 6pm in summer. No tracking, no pace target. A convenience store loop or park walk counts. Keeps blood moving without stress.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🏊</div>
+    <div><div class="tip-title">Pool Float / Easy Swim</div><div class="tip-body">Zero impact. Hydrostatic pressure reduces swelling and soreness. Breaststroke or gentle kick. Not laps for time. Great in July/August heat.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🛁</div>
+    <div><div class="tip-title">Ofuro / Epsom Bath (15–20 min at 40°C)</div><div class="tip-body">Japanese hot bath ritual. Improves circulation, relaxes muscle tension, improves sleep onset. Add Epsom salt for extra magnesium absorption.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🧊</div>
+    <div><div class="tip-title">Contrast Shower (3 rounds)</div><div class="tip-body">2 min warm → 30 sec cold → repeat. Best the morning after a hard double session. Reduces DOMS noticeably by mid-day. Keep cold phase short and sharp.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🦵</div>
+    <div><div class="tip-title">Foam Roll + Mobility Flow (10–20 min)</div><div class="tip-body">Quads, hamstrings, calves, hip flexors, glutes. Slow — 30–60 sec per spot. Add 90/90 hip switch, pigeon, couch stretch, thoracic rotation. Before sleep is ideal.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🌬️</div>
+    <div><div class="tip-title">Breathing Reset (5–10 min)</div><div class="tip-body">4-7-8 pattern (inhale 4, hold 7, exhale 8) or box breathing. Lowers cortisol and heart rate variability. Especially useful if summer heat is disrupting sleep.</div></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🧠</div>
+    <div><div class="tip-title">Mental Rehearsal (10 min)</div><div class="tip-body">Eyes closed. Walk through your race — start, drive phase, snap up, top speed, finish. Most powerful in Wks 14–17. Activates the same neural patterns as physical practice.</div></div>
+  </div>
+  <div class="tip-card warn">
+    <div class="tip-icon">⚠️</div>
+    <div><div class="tip-title">Signs You Need an Extra Rest Day</div><div class="tip-body">Resting HR 5+ bpm above normal. Two consecutive sessions rated 2/5 or below. Heavy legs that don't clear by mid-morning. Poor sleep 3+ nights in a row. Trust the signal.</div></div>
+  </div>
+</div>
+
+<!-- ========== RECIPES ========== -->
+<div class="content section" id="tab-recipes">
+  <div class="section-title">Summer Fuel Kitchen</div>
+  <div class="section-sub">Training nutrition for Tokyo heat — pre/post session, recovery meals, treats and drinks</div>
+
+  <!-- RECIPE FILTER TABS -->
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;" id="recipe-filters">
+    <button class="recipe-filter-btn active" onclick="filterRecipes('all', this)">All</button>
+    <button class="recipe-filter-btn" onclick="filterRecipes('drinks', this)">Drinks</button>
+    <button class="recipe-filter-btn" onclick="filterRecipes('shakes', this)">Shakes</button>
+    <button class="recipe-filter-btn" onclick="filterRecipes('meals', this)">Meals</button>
+    <button class="recipe-filter-btn" onclick="filterRecipes('snacks', this)">Snacks</button>
+    <button class="recipe-filter-btn" onclick="filterRecipes('treats', this)">Treats</button>
+    <button class="recipe-filter-btn" onclick="filterRecipes('desserts', this)">Desserts</button>
+    <button class="recipe-filter-btn" onclick="filterRecipes('other', this)">Other</button>
+  </div>
+
+  <div id="recipe-list"></div>
+</div>
+
+
+// ===== EXERCISE DATA WITH ALTERNATIVES & SPRINT INFO =====
+const EXERCISE_META = {
+  'Hack Squat': {
+    muscle: 'Quad / Knee Drive',
+    alts: [
+      { name: 'Barbell Back Squat', note: 'Free weight version. More core demand. Use if hack machine unavailable.' },
+      { name: 'Leg Press (bilateral)', note: 'Machine alternative. Adjust foot position high for more hamstring.' },
+      { name: 'Safety Bar Squat', note: 'Easier on shoulders, similar quad load. Good hack squat substitute.' },
+      { name: 'Bulgarian Split Squat', note: 'Single-leg version. More instability, builds hip flexor strength too.' },
+    ],
+    sprint: { muscle: 'Quadriceps — Knee Extension', why: 'Hack squats build the quad strength needed for powerful knee drive during the acceleration phase. Strong quads allow you to push the ground away with greater force, directly increasing stride length and initial speed from blocks to 30m.' }
+  },
+  'Leg Press (single-leg)': {
+    muscle: 'Quad / Glute',
+    alts: [
+      { name: 'Bilateral Leg Press', note: 'Use both legs if fatigue or form breaks. Reduce weight by ~40%.' },
+      { name: 'Step-up (weighted)', note: 'Similar single-leg push pattern. Adds hip flexor stability.' },
+      { name: 'Bulgarian Split Squat', note: 'More demanding stability. Same unilateral pushing pattern.' },
+    ],
+    sprint: { muscle: 'Quads & Glutes — Single-Leg Push', why: 'Sprinting is a single-leg sport. The leg press isolates each leg\'s pushing power, exposing and correcting left/right imbalances that cause compensatory mechanics. A stronger push phase means a longer ground contact impulse and faster acceleration.' }
+  },
+  'Romanian Deadlift (Smith)': {
+    muscle: 'Hamstring / Hip Hinge',
+    alts: [
+      { name: 'Romanian Deadlift (barbell)', note: 'Free weight version. More hip stability demand. Maintain same slow eccentric.' },
+      { name: 'Romanian Deadlift (dumbbells)', note: 'Good if Smith isn\'t available. Allows slight torso rotation adjustment.' },
+      { name: 'Single-Leg Romanian Deadlift', note: 'Unilateral version. Harder on balance but more sprint-specific.' },
+      { name: 'Good Morning (barbell)', note: 'Similar hip hinge pattern, more lower back involvement.' },
+    ],
+    sprint: { muscle: 'Hamstrings — Eccentric Braking & Hip Extension', why: 'The RDL with a slow eccentric trains the hamstrings to control hip extension under load. In sprinting, the hamstrings must both decelerate the swinging leg and powerfully extend the hip. This exercise builds both the strength and injury resilience (via eccentric loading) critical for max velocity sprinting.' }
+  },
+  'Hamstring Curl': {
+    muscle: 'Hamstring',
+    alts: [
+      { name: 'Nordic Hamstring Curl', note: 'Harder bodyweight eccentric version. Best hamstring injury prevention exercise known.' },
+      { name: 'Single-Leg Hamstring Curl', note: 'Unilateral machine version. Exposes left/right imbalances.' },
+      { name: 'Swiss Ball Leg Curl', note: 'No machine needed. Unstable surface adds core demand.' },
+      { name: 'Glute-Ham Raise (GHD)', note: 'If GHD machine available. Combines hamstring curl with hip extension — very sprint-specific.' },
+    ],
+    sprint: { muscle: 'Hamstrings — Knee Flexion & Foot Pull-Through', why: 'The hamstring curl trains the knee flexion component of the sprint recovery cycle — the action of pulling the heel up toward the glutes between strides. Faster hamstring recovery = shorter ground contact time = higher stride frequency at max velocity.' }
+  },
+  'Hip Abductor': {
+    muscle: 'Hip Abductor / Pelvic Stability',
+    alts: [
+      { name: 'Banded Lateral Walk', note: 'Bodyweight alternative. Place band above knees, walk sideways.' },
+      { name: 'Side-Lying Hip Abduction', note: 'No machine needed. Use ankle weight for resistance.' },
+      { name: 'Copenhagen Plank (adductor)', note: 'Works opposite muscle. Pair with abductor work for full hip stability.' },
+    ],
+    sprint: { muscle: 'Gluteus Medius — Pelvic Stability', why: 'During sprinting, the pelvis must stay level on each single-leg ground contact. Weak hip abductors allow the pelvis to drop on the swing leg side, reducing force transfer and increasing injury risk. Stronger abductors mean more efficient power transmission into the ground.' }
+  },
+  'Calf Raise': {
+    muscle: 'Calf / Achilles',
+    alts: [
+      { name: 'Single-Leg Calf Raise', note: 'More sprint-specific. Harder — use once bilateral version is easy.' },
+      { name: 'Seated Calf Raise', note: 'Targets soleus more. Good complement to standing version.' },
+      { name: 'Donkey Calf Raise', note: 'If machine available — allows higher range of motion.' },
+    ],
+    sprint: { muscle: 'Gastrocnemius & Soleus — Ankle Stiffness', why: 'The Achilles tendon acts like a spring in sprinting, storing and releasing elastic energy with each ground contact. Slow eccentric calf raises strengthen the tendon and muscle to handle the rapid loading of max-speed contacts, and help prevent the Achilles injuries common in sprint athletes.' }
+  },
+  'Chest Press (machine)': {
+    muscle: 'Chest / Shoulder Stability',
+    alts: [
+      { name: 'Dumbbell Bench Press', note: 'Free weight version. More shoulder stability demand.' },
+      { name: 'Push-up (weighted)', note: 'Bodyweight option. Add weight vest or elevate feet.' },
+      { name: 'Cable Chest Press', note: 'More instability. Engages stabilisers differently.' },
+    ],
+    sprint: { muscle: 'Pectorals & Anterior Shoulder — Arm Drive', why: 'The chest and shoulder muscles power the forward arm swing in sprinting. Strong, controlled arm drive balances leg action via contralateral rotation, helps maintain upright posture, and contributes to stride frequency — especially critical in the acceleration phase.' }
+  },
+  'Shoulder Press (machine)': {
+    muscle: 'Shoulder / Overhead Stability',
+    alts: [
+      { name: 'Dumbbell Shoulder Press', note: 'Free weight version. Requires more core stability.' },
+      { name: 'Arnold Press', note: 'Greater rotator cuff engagement. Good injury prevention tool.' },
+      { name: 'Landmine Press', note: 'Single-arm pressing. More sport-specific shoulder stability.' },
+    ],
+    sprint: { muscle: 'Deltoids — Arm Drive Strength', why: 'Overhead shoulder strength ensures the arm swing stays powerful and consistent even when fatigued late in a race. The deltoids control arm elevation during the upswing, and weakness here leads to arm collapse and loss of sprint rhythm past 80m.' }
+  },
+  'Cable Row (low)': {
+    muscle: 'Upper Back / Posterior Pull',
+    alts: [
+      { name: 'Dumbbell Row', note: 'Single-arm version. More unilateral control.' },
+      { name: 'Seated Row (machine)', note: 'Machine version. Easier to control load — good for beginners.' },
+      { name: 'Resistance Band Row', note: 'No cable needed. Mimics the motion with lighter resistance.' },
+    ],
+    sprint: { muscle: 'Lats & Rhomboids — Arm Pull-Back', why: 'The back arm swing (pulling the elbow back and down) is powered by the lats and rhomboids. A powerful back swing creates the reactive force that drives the opposite leg forward. Weak pulling muscles reduce arm drive efficiency and hurt stride mechanics.' }
+  },
+  'Cable Lat Pulldown': {
+    muscle: 'Lats / Scapular Control',
+    alts: [
+      { name: 'Pull-up / Chin-up', note: 'Bodyweight version. Harder — use once pulldown is strong.' },
+      { name: 'Resistance Band Pulldown', note: 'No cable needed. Anchor band overhead.' },
+      { name: 'Straight-Arm Pulldown', note: 'Isolates lats more. Great for scapular depression strength.' },
+    ],
+    sprint: { muscle: 'Latissimus Dorsi — Shoulder Stability & Arm Pull', why: 'The lats stabilise the shoulder girdle during the explosive arm swing cycle of sprinting. Strong lats keep the arm path tight and efficient, preventing the wide, energy-wasting arm swing that develops under fatigue.' }
+  },
+  'Cable Pallof Press': {
+    muscle: 'Rotational Core / Anti-Rotation',
+    alts: [
+      { name: 'Half-Kneeling Pallof Press', note: 'More core isolation — removes leg drive completely.' },
+      { name: 'Band Pallof Press', note: 'No cable needed. Anchor resistance band to a fixed point.' },
+      { name: 'Dead Bug', note: 'Floor-based anti-rotation. Excellent for sprint posture stability.' },
+    ],
+    sprint: { muscle: 'Obliques & Deep Core — Rotational Stability', why: 'During sprinting, the core must resist the rotational forces generated by arm and leg drive, keeping the torso stable while the limbs move explosively. The Pallof press trains anti-rotation — preventing energy leakage through a wobbly trunk and maintaining the upright sprint posture needed for max velocity.' }
+  },
+  'Cable Woodchop (high-to-low)': {
+    muscle: 'Rotational Core',
+    alts: [
+      { name: 'Medicine Ball Rotational Throw', note: 'More explosive version. Throw against wall or to partner.' },
+      { name: 'Band Woodchop', note: 'No cable needed. Anchor band high.' },
+      { name: 'Russian Twist', note: 'Seated rotational core. Good supplementary exercise.' },
+    ],
+    sprint: { muscle: 'Obliques — Rotational Power Transfer', why: 'Sprinting involves controlled trunk rotation with each stride — the opposite shoulder rotates toward the driving knee. Woodchops build the rotational core strength to make this movement powerful and efficient rather than passive, improving hip-to-shoulder coordination.' }
+  },
+  'Dumbbell Row': {
+    muscle: 'Upper Back / Lats',
+    alts: [
+      { name: 'Cable Row (single-arm)', note: 'Cable version. More constant tension through the movement.' },
+      { name: 'Chest-Supported Row (machine)', note: 'Removes lower back demand entirely. Good for heavy loading.' },
+      { name: 'Inverted Row', note: 'Bodyweight version. Adjust angle for difficulty.' },
+    ],
+    sprint: { muscle: 'Lats, Rhomboids & Rear Deltoids — Arm Pull Strength', why: 'The dumbbell row mimics the pulling component of the arm drive. Strong back muscles ensure the arm can be driven back powerfully with each stride, maintaining sprint rhythm and preventing forward lean collapse under fatigue.' }
+  },
+  'Hack Squat + Squat Jumps (contrast)': {
+    muscle: 'Quad / Power',
+    alts: [
+      { name: 'Leg Press + Box Jump (contrast)', note: 'Substitute for hack squat machine. Same contrast training principle.' },
+      { name: 'Barbell Squat + Vertical Jump', note: 'Free weight contrast. More core demand.' },
+      { name: 'Trap Bar Deadlift + Broad Jump', note: 'Hip-dominant contrast. Excellent for acceleration power.' },
+    ],
+    sprint: { muscle: 'Quads & CNS — Post-Activation Potentiation', why: 'Contrast training (heavy lift → explosive jump) uses post-activation potentiation (PAP): the nervous system is primed by the heavy squat and then fires the same muscles more powerfully in the jump. This directly trains the rate of force development needed to generate maximum acceleration in the first 10–20m of a sprint.' }
+  },
+  'Hip Thrust (Smith)': {
+    muscle: 'Glute / Hip Extension',
+    alts: [
+      { name: 'Hip Thrust (barbell, bench)', note: 'Free weight version. More core stability required.' },
+      { name: 'Hip Thrust (dumbbell)', note: 'Lighter load option. Good for form work.' },
+      { name: 'Glute Bridge (floor)', note: 'Bodyweight version. Use if no bench or bar available.' },
+      { name: 'Single-Leg Hip Thrust', note: 'Sprint-specific unilateral version. Harder — use once bilateral is strong.' },
+    ],
+    sprint: { muscle: 'Gluteus Maximus — Hip Extension Power', why: 'The glutes are the primary engine of sprinting. Hip extension during the push-off phase is where the most force is applied to the ground. Heavy hip thrusts build maximum glute strength in the exact range of motion used in sprinting, directly increasing propulsive force and stride length.' }
+  },
+  'Depth Drop / Reactive Squat Jumps': {
+    muscle: 'Elastic Stiffness / CNS',
+    alts: [
+      { name: 'Box Drop + Sprint', note: 'Drop from box, land, immediately sprint 15m. Excellent transfer.' },
+      { name: 'Drop Jump', note: 'Drop from box and jump immediately. Classic plyometric.' },
+      { name: 'Hurdle Hop + Sprint', note: 'Horizontal plyometric with immediate sprint. High transfer.' },
+    ],
+    sprint: { muscle: 'Entire Lower Chain — Reactive Stiffness', why: 'Sprinting at max velocity requires the leg to behave like a stiff spring — loading and unloading in milliseconds. Depth drops train the nervous system to stiffen the ankle, knee and hip instantaneously on ground contact, mimicking the reactive demand of max-speed sprint contacts. This is how you develop "hot ground" mechanics.' }
+  },
+  'DB Step-up — explosive': {
+    muscle: 'Quad / Glute / Power',
+    alts: [
+      { name: 'Barbell Step-up', note: 'More load possible. Use if dumbbell is limiting factor.' },
+      { name: 'Explosive Lunge', note: 'No box needed. Drive knee up explosively on push-off.' },
+      { name: 'Kettlebell Step-up', note: 'Offset loading. Challenges core stability more.' },
+    ],
+    sprint: { muscle: 'Quad, Glute & Hip Flexor — Unilateral Explosive Push', why: 'The explosive step-up mimics the single-leg push phase of sprinting — particularly the drive-knee action. By driving the free knee up explosively, you train both the pushing leg (glute/quad) and the hip flexor simultaneously, improving both ground contact force and knee drive speed.' }
+  },
+  'Bounding (alt. leg)': {
+    muscle: 'Full Leg Chain / Elastic Power',
+    alts: [
+      { name: 'Single-leg bounding', note: 'More demanding. Focus on same-leg consecutive bounds.' },
+      { name: 'Power skips', note: 'Vertical bounding. Emphasises height and hip height.' },
+      { name: 'Triple jumps', note: 'Hop-step-jump sequence. High elastic demand.' },
+    ],
+    sprint: { muscle: 'Entire Lower Chain — Horizontal Elastic Power', why: 'Bounding develops the horizontal elastic power that drives sprint speed. Each bound mimics an exaggerated sprint stride, training the leg to produce maximum horizontal force per contact. The stiff-contact cue directly trains the elastic mechanics that separate fast sprinters from slow ones at max velocity.' }
+  },
+  'Tibialis Raises': {
+    muscle: 'Tibialis Anterior / Shin',
+    alts: [
+      { name: 'Tib bar raises', note: 'If tib bar available — allows added load.' },
+      { name: 'Seated toe raise (band)', note: 'Band around foot, dorsiflexion against resistance.' },
+      { name: 'Heel walk', note: 'Walk on heels for 30m. Bodyweight tibialis loading.' },
+    ],
+    sprint: { muscle: 'Tibialis Anterior — Foot Clearance & Shin Splint Prevention', why: 'The tibialis anterior dorsiflexes the foot (pulls toes up) to clear the ground during the swing phase and positions the foot correctly for a stiff ground contact. Strengthening it reduces the risk of shin splints and ensures the foot snaps up quickly — essential for maintaining high stride frequency.' }
+  },
+  'Single-leg Calf Raise': {
+    muscle: 'Calf / Achilles Tendon',
+    alts: [
+      { name: 'Seated single-leg calf raise', note: 'Targets soleus specifically. Less Achilles spring training.' },
+      { name: 'Pogos (single-leg)', note: 'More dynamic. Trains the Achilles as a spring under light load.' },
+      { name: 'Incline single-leg calf raise', note: 'Greater range of motion. Better stretch at bottom.' },
+    ],
+    sprint: { muscle: 'Soleus & Gastrocnemius — Unilateral Tendon Endurance', why: 'Sprint contacts occur one leg at a time. Single-leg calf raises build the tendon endurance to handle repeated unilateral loading at high frequency. This is critical for the later stages of a race when cumulative Achilles load increases and form typically breaks down.' }
+  },
+  'Calf + Single-leg Calf': {
+    muscle: 'Calf / Achilles',
+    alts: [
+      { name: 'Pogos (two-leg then one-leg)', note: 'Dynamic Achilles loading. More sprint-specific.' },
+      { name: 'Jump rope', note: 'Continuous calf loading. Great warm-up or finisher.' },
+    ],
+    sprint: { muscle: 'Calf Complex — Achilles Spring Capacity', why: 'Combining bilateral and unilateral calf raises in the same session builds both overall tendon capacity and sport-specific single-leg strength. The Achilles spring must absorb and return energy in under 100ms at max sprint speed — building its capacity is non-negotiable for fast contacts.' }
+  },
+  'Block/Standing Starts → 20m': {
+    muscle: 'Acceleration / Drive Phase',
+    alts: [
+      { name: 'Push-up starts → 20m', note: 'No blocks needed. Creates a low start position naturally.' },
+      { name: 'Falling starts → 20m', note: 'Lean forward until you fall, then sprint. Teaches forward lean.' },
+      { name: 'Sled sprint 15m', note: 'Resisted starts. Heavier load = more force production demand.' },
+    ],
+    sprint: { muscle: 'Entire Lower Chain — Drive Phase Mechanics', why: 'Block and standing starts train the acceleration phase from zero velocity — the portion where your strength advantage is greatest. The drive phase (0–20m) is where body angle, shin angle, and pushing mechanics convert strength into speed. These reps directly translate to your 100m/200m start performance.' }
+  },
+  'Flying 30m (30m build + 30m fly)': {
+    muscle: 'Max Velocity',
+    alts: [
+      { name: 'Flying 20m', note: 'Shorter option for early phase or deload. Same intent, less volume.' },
+      { name: 'Flying 40m', note: 'Extended fly zone. Trains max-v maintenance further into the run.' },
+      { name: 'Wicket runs', note: 'Can replace flying runs to add stride length/frequency focus.' },
+    ],
+    sprint: { muscle: 'Neuromuscular System — Max Velocity Expression', why: 'Flying 30s let you practise true maximum velocity sprinting — something a standing start doesn\'t allow until much further into the run. The 30m build ensures your nervous system is fully primed before the fly zone. This is where top speed mechanics (snap up, hot ground, tall posture) are trained and reinforced.' }
+  },
+  'Wicket Runs / Stride Drill': {
+    muscle: 'Stride Length & Frequency',
+    alts: [
+      { name: 'Sprint A-skips over cones', note: 'Emphasise dorsiflexion and knee drive rhythm.' },
+      { name: 'Acceleration ladder runs', note: 'Agility ladder for stride frequency work.' },
+      { name: 'Build strides with focus cues', note: 'No equipment. Focus alternate reps on stride length vs. frequency.' },
+    ],
+    sprint: { muscle: 'Hip Flexors & Stride Mechanics — Length/Frequency', why: 'Wicket runs use spacing to force correct stride length in the first half (overreaching the wickets trains longer strides) and higher frequency in the second half (under-spaced wickets force quick turnover). This directly drills the two components that determine sprint speed: stride length × stride frequency.' }
+  },
+  'Chest Press / DB Bench': {
+    muscle: 'Chest / Arm Drive',
+    alts: [
+      { name: 'Machine Chest Press', note: 'Easier to load safely. Good if no spotter available.' },
+      { name: 'Push-up (weighted)', note: 'Bodyweight version. Add weight vest or hands on plates.' },
+      { name: 'Cable Chest Press', note: 'More shoulder stability demand. Good functional option.' },
+    ],
+    sprint: { muscle: 'Pectorals & Anterior Deltoid — Forward Arm Swing', why: 'Chest and shoulder pressing strength powers the forward (push) component of the arm drive. In sprinting, strong arm drive is biomechanically linked to leg turnover — faster arms mean faster legs. The chest and front shoulder must be strong enough to maintain arm drive intensity even in the final 30m of a race.' }
+  },
+  'Cable Row': {
+    muscle: 'Upper Back / Arm Pull',
+    alts: [
+      { name: 'Dumbbell Row', note: 'Single-arm version. More unilateral demand.' },
+      { name: 'Machine Row', note: 'Seated machine version. Easier to control load.' },
+      { name: 'Resistance Band Row', note: 'No cable needed. Works the same pull pattern.' },
+    ],
+    sprint: { muscle: 'Lats & Rhomboids — Back Arm Drive', why: 'The cable row trains the muscles responsible for pulling the elbow back in the arm swing. In sprinting, the back-swing generates the reactive force that helps drive the opposite leg forward. Weak pulling muscles = reduced arm drive efficiency = slower leg turnover.' }
+  },
+  'Hamstring Curl (slow eccentrics)': {
+    muscle: 'Hamstring Eccentric',
+    alts: [
+      { name: 'Nordic Hamstring Curl', note: 'Bodyweight version. Arguably the best hamstring injury prevention exercise.' },
+      { name: 'Single-leg hamstring curl', note: 'Unilateral machine. Harder and more sprint-specific.' },
+      { name: 'Swiss ball leg curl', note: 'No machine needed. Adds instability and hip extension.' },
+    ],
+    sprint: { muscle: 'Hamstrings — Eccentric Braking Strength', why: 'The hamstrings must eccentrically decelerate the swinging leg just before ground contact at max velocity. Weak eccentric hamstring strength is the leading cause of hamstring sprains in sprinters. Slow eccentric curls build the exact injury-resistant strength needed for high-speed training.' }
+  },
+  'Hamstring Curl (eccentrics)': {
+    muscle: 'Hamstring Eccentric',
+    alts: [
+      { name: 'Nordic Hamstring Curl', note: 'Bodyweight version. High eccentric demand without machine.' },
+      { name: 'Single-leg hamstring curl', note: 'More specific. Exposes side-to-side differences.' },
+    ],
+    sprint: { muscle: 'Hamstrings — Eccentric Injury Prevention', why: 'Eccentric hamstring strength is the single most important injury prevention factor for sprint athletes. At max velocity, the hamstring must absorb massive deceleration forces. Phase 2 increases the load and sets — matching the higher sprint speeds you\'re now achieving.' }
+  },
+  'Reactive Jump → Sprint + Bounding': {
+    muscle: 'Elastic Power / CNS',
+    alts: [
+      { name: 'Hurdle hops → Sprint', note: 'Series of hurdle contacts then immediate sprint. High CNS demand.' },
+      { name: 'Ankle pogos → Sprint', note: 'Lighter option. 20 pogos then sprint 20m.' },
+    ],
+    sprint: { muscle: 'Entire Chain — Reactive Power Transfer', why: 'Combining reactive jumps with an immediate sprint creates the nervous system link between elastic stiffness and sprint mechanics. The jump primes the fast-twitch fibres for the sprint — this is the most direct transfer exercise in the programme for improving ground contact time.' }
+  },
+  'Tibialis + Calf + Hip Ab/Adductor': {
+    muscle: 'Maintenance / Prehab',
+    alts: [
+      { name: 'Perform each exercise separately', note: 'Split into individual sets if combined circuit is too fatiguing.' },
+    ],
+    sprint: { muscle: 'Support Structures — Injury Prevention', why: 'This trio maintains the ankle (Achilles/tibialis), calf, and hip stability structures that allow maximum sprint training without injury. As sprint speeds increase in Phase 2, these tissues bear greater load. Consistent prehab here directly reduces missed sessions due to injury.' }
+  },
+};
+
+// ===== EXERCISE DATA =====
 const PRESEASON_MON_EX = [
   { name: 'Hack Squat', target: '50–70 kg × 8 × 3–4', note: 'Full depth. 3 sec eccentric down.', sets: 4 },
-  { name: 'Leg Press (single-leg)', target: '3 × 10 each leg', note: 'Drive through heel. Controlled return.', sets: 3 },
   { name: 'Romanian Deadlift (Smith)', target: '40–50 kg × 10 × 3', note: 'Slow 3-sec eccentric. Feel hamstring stretch.', sets: 3 },
+  { name: 'Leg Press (single-leg)', target: '3 × 10 each leg', note: 'Drive through heel. Controlled return.', sets: 3 },
   { name: 'Hamstring Curl', target: '3 × 12', note: 'Full ROM. Squeeze at top. Your sprint brakes.', sets: 3 },
   { name: 'Hip Abductor', target: '3 × 15', note: 'Pelvic stability during sprint.', sets: 3 },
   { name: 'Calf Raise', target: '4 × 15 (3 sec down)', note: 'Achilles loading. Slow eccentric is the key.', sets: 4 },
@@ -1094,19 +1969,19 @@ const PRESEASON_MON_EX = [
 
 const PRESEASON_THU_EX = [
   { name: 'Chest Press (machine)', target: '4 × 8', note: 'Controlled push. Build shoulder stability.', sets: 4 },
-  { name: 'Shoulder Press (machine)', target: '3 × 10', note: 'Strict — no momentum.', sets: 3 },
   { name: 'Cable Row (low)', target: '3 × 10', note: 'Pull to lower chest. Elbows tight.', sets: 3 },
+  { name: 'Shoulder Press (machine)', target: '3 × 10', note: 'Strict — no momentum.', sets: 3 },
   { name: 'Cable Lat Pulldown', target: '3 × 10', note: 'Full stretch at top.', sets: 3 },
+  { name: 'Dumbbell Row', target: '3 × 10 each side', note: 'Heavy. Full ROM.', sets: 3 },
   { name: 'Cable Pallof Press', target: '3 × 12 each side', note: 'Anti-rotation core. Sprint posture stability.', sets: 3 },
   { name: 'Cable Woodchop (high-to-low)', target: '3 × 10 each side', note: 'Rotational core. Control throughout.', sets: 3 },
-  { name: 'Dumbbell Row', target: '3 × 10 each side', note: 'Heavy. Full ROM.', sets: 3 },
 ];
 
 const P1_MON_EX = [
   { name: 'Hack Squat + Squat Jumps (contrast)', target: '70 kg × 5 × 4 → 78 kg | Jump 4×4', note: 'Jump immediately after each squat set.', sets: 4 },
   { name: 'Romanian Deadlift (Smith)', target: '50–60 kg × 8 × 3', note: '3-sec eccentric. Feel hamstring stretch.', sets: 3 },
   { name: 'Leg Press (single-leg)', target: '3 × 8 each', note: 'Drive through heel.', sets: 3 },
-  { name: 'Hamstring Curl', target: '3 × 10', note: 'Controlled. Full ROM.', sets: 3 },
+  { name: 'Hamstring Curl (slow eccentrics)', target: '3 × 10', note: 'Controlled. Full ROM.', sets: 3 },
   { name: 'Calf Raise (slow eccentrics)', target: '4 × 12 (4 sec down)', note: 'Achilles loading — do not rush.', sets: 4 },
   { name: 'Single-leg Calf Raise', target: '3 × 20 each', note: 'Bodyweight, full height. Tendon endurance.', sets: 3 },
 ];
@@ -1123,18 +1998,18 @@ const P1_TUPM_EX = [
   { name: 'Cable Row', target: '3 × 10 each', note: 'Heavy. Full ROM.', sets: 3 },
   { name: 'Cable Lat Pulldown', target: '3 × 8–10', note: 'Full hang at bottom.', sets: 3 },
   { name: 'Cable Pallof Press', target: '3 × 12 each side', note: 'Anti-rotation core.', sets: 3 },
-  { name: 'Cable Woodchop', target: '3 × 10 each side', note: 'Rotational core power.', sets: 3 },
+  { name: 'Cable Woodchop (high-to-low)', target: '3 × 10 each side', note: 'Rotational core power.', sets: 3 },
 ];
 
 const P1_FRI_EX = [
-  { name: 'Romanian Deadlift (Smith) — Heavy', target: '65–75 kg × 5 × 4', note: 'Slow down, explosive up.', sets: 4 },
-  { name: 'Hamstring Curl (slow eccentrics)', target: '4 × 6–8', note: 'Lower as slowly as possible. Two legs up, one leg down.', sets: 4 },
+  { name: 'Romanian Deadlift (Smith)', target: '65–75 kg × 5 × 4', note: 'Slow down, explosive up.', sets: 4 },
   { name: 'Hip Thrust (Smith)', target: '60–80 kg × 10 × 4', note: 'Drive from glutes. Full hip extension. Build to 100 kg+.', sets: 4 },
+  { name: 'Hamstring Curl (slow eccentrics)', target: '4 × 6–8', note: 'Lower as slowly as possible. Two legs up, one leg down.', sets: 4 },
   { name: 'Depth Drop / Reactive Squat Jumps', target: '4 × 3', note: 'Land stiff, sprint 10m.', sets: 4 },
   { name: 'DB Step-up — explosive', target: '3 × 8 each', note: 'Drive knee up explosively.', sets: 3 },
   { name: 'Bounding (alt. leg)', target: '3 × 30m', note: 'Stiff contact not hang time.', sets: 3 },
+  { name: 'Calf + Single-leg Calf', target: '4×12 / 3×15', note: 'Achilles + tendon endurance.', sets: 4 },
   { name: 'Tibialis Raises', target: '3 × 20', note: 'Lean back against wall, raise toes. Prevents shin splints.', sets: 3 },
-  { name: 'Calf Raise + Hip Abductor + Adductor', target: '4×12 / 3×15 / 3×15', note: 'Achilles + pelvic stability.', sets: 4 },
 ];
 
 const P2_MON_EX = [
@@ -1161,11 +2036,10 @@ const CHECKLIST = [
   'Sleep averaging 8 hrs?',
 ];
 
-// ===== STORAGE KEY =====
+// ===== STORAGE =====
 const STORE = 'sprintlog_v1';
 let data = {};
 try { data = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) {}
-
 function save(key, val) { data[key] = val; localStorage.setItem(STORE, JSON.stringify(data)); }
 function load(key) { return data[key] || ''; }
 
@@ -1173,32 +2047,148 @@ function load(key) { return data[key] || ''; }
 function renderExercises(containerId, exercises, prefix) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  container.innerHTML = exercises.map(ex => `
-    <div class="exercise-row">
-      <div class="ex-name">${ex.name}</div>
-      <div class="ex-target">${ex.target}</div>
-      <div class="ex-note">${ex.note}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+  container.innerHTML = exercises.map(ex => {
+    const meta = EXERCISE_META[ex.name] || {};
+    const muscleTag = meta.muscle ? `<span class="ex-muscle-tag">${meta.muscle}</span>` : '';
+    const hasAlts = meta.alts && meta.alts.length > 0;
+    const hasSprint = meta.sprint;
+    const key = ex.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'');
+
+    // Alternative select dropdown (replaces panel)
+    const altSelectHtml = hasAlts ? `
+      <div class="alt-select-wrap">
+        <div class="alt-select-label">Alternative ▾</div>
+        <select class="alt-select" onchange="applyAlternative(this, '${containerId}', '${prefix}')">
+          <option value="">— use original —</option>
+          ${meta.alts.map(a => `<option value="${a.name}" data-note="${a.note}">${a.name}</option>`).join('')}
+        </select>
+      </div>` : '';
+
+    const sprintHtml = hasSprint ? `
+      <div class="sprint-panel">
+        <div class="sprint-panel-title">Why this builds sprint speed</div>
+        <div class="sprint-muscle">${meta.sprint.muscle}</div>
+        <div class="sprint-why">${meta.sprint.why}</div>
+      </div>` : '';
+
+    const sprintBtn = hasSprint ? `<button class="ex-info-btn sprint-btn" onclick="toggleSprintPanel(this)">Sprint benefit ▾</button>` : '';
+    const infoBtns = hasSprint ? `<div class="ex-info-row">${sprintBtn}</div>` : '';
+
+    return `
+    <div class="exercise-row" style="margin-top:12px;" data-ex-name="${ex.name}" data-ex-prefix="${prefix}">
+      <div class="ex-name-wrap">
+        <div class="ex-name">${ex.name}</div>
+        ${muscleTag}
+      </div>
+      ${infoBtns}
+      ${altSelectHtml}
+      ${sprintHtml}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
         <div class="field-group">
           <div class="field-label">Load Used</div>
-          <input type="text" class="set-input log-field" data-key="${prefix}_${ex.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'')}_load_WK" placeholder="e.g. 72 kg">
+          <input type="text" class="set-input log-field" data-key="${prefix}_${key}_load_WK" placeholder="${ex.target.split('·')[0].trim() || ex.target}">
         </div>
         <div class="field-group">
-          <div class="field-label">Reps/Sets Done</div>
-          <input type="text" class="set-input log-field" data-key="${prefix}_${ex.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'')}_reps_WK" placeholder="e.g. 5×4">
+          <div class="field-label">Sets × Reps</div>
+          <input type="text" class="set-input log-field" data-key="${prefix}_${key}_reps_WK" placeholder="${ex.target}">
         </div>
       </div>
-      <div class="field-group" style="margin-top:4px;">
-        <div class="field-label">Feel / Notes</div>
-        <input type="text" class="set-input log-field" data-key="${prefix}_${ex.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'')}_feel_WK" placeholder="Easy / Hard / Notes">
+      <div>
+        <button class="note-icon-btn" onclick="toggleNoteField(this)" data-key="${prefix}_${key}_feel_WK">
+          📝 <span>Note</span>
+        </button>
+        <div class="note-inline-field">
+          <input type="text" class="set-input log-field" data-key="${prefix}_${key}_feel_WK" placeholder="Feel / notes…">
+        </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
+}
+
+// ===== TOGGLE NOTE FIELD =====
+function toggleNoteField(btn) {
+  const noteField = btn.nextElementSibling;
+  const isOpen = noteField.classList.toggle('open');
+  btn.classList.toggle('active', isOpen);
+  if (isOpen) {
+    // check if there's a value saved
+    const input = noteField.querySelector('input');
+    if (input && input.value) btn.classList.add('has-note');
+  }
+  // Update has-note state based on value
+  const input = btn.nextElementSibling.querySelector('input');
+  if (input) {
+    input.addEventListener('input', () => {
+      btn.classList.toggle('has-note', !!input.value);
+    }, { once: false });
+    if (isOpen) input.focus();
+  }
+}
+
+// ===== APPLY ALTERNATIVE =====
+function applyAlternative(select, containerId, prefix) {
+  const row = select.closest('.exercise-row');
+  const chosenName = select.value;
+  const originalName = row.dataset.exName;
+  const meta = EXERCISE_META[originalName] || {};
+
+  if (!chosenName) {
+    // Revert to original
+    row.querySelector('.ex-name').textContent = originalName;
+    const sprint = row.querySelector('.sprint-panel');
+    if (sprint && meta.sprint) {
+      sprint.querySelector('.sprint-muscle').textContent = meta.sprint.muscle;
+      sprint.querySelector('.sprint-why').textContent = meta.sprint.why;
+    }
+    // Revert placeholders
+    const inputs = row.querySelectorAll('.log-field');
+    inputs.forEach(inp => { if (inp.placeholder) inp.placeholder = inp.placeholder; });
+    return;
+  }
+
+  const alt = meta.alts && meta.alts.find(a => a.name === chosenName);
+  if (!alt) return;
+
+  // Change displayed exercise name
+  row.querySelector('.ex-name').textContent = chosenName;
+
+  // Update sprint panel if it exists and the alt has sprint info
+  const altMeta = EXERCISE_META[chosenName];
+  const sprint = row.querySelector('.sprint-panel');
+  if (sprint) {
+    if (altMeta && altMeta.sprint) {
+      sprint.querySelector('.sprint-muscle').textContent = altMeta.sprint.muscle;
+      sprint.querySelector('.sprint-why').textContent = altMeta.sprint.why;
+    } else {
+      sprint.querySelector('.sprint-muscle').textContent = '';
+      sprint.querySelector('.sprint-why').textContent = alt.note || 'Alternative exercise selected.';
+    }
+  }
+
+  // Update reps/sets placeholder with alt note
+  const repsInput = row.querySelector('[data-key*="_reps_"]');
+  if (repsInput) repsInput.placeholder = alt.note || chosenName;
+
+  // Save the selected alternative
+  const key = originalName.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'');
+  const phase = getPhaseFromElement(row);
+  const wk = currentWeek[phase] || 'Wk1';
+  save(`${prefix}_${key}_alt_${wk}`, chosenName);
+}
+
+function toggleSprintPanel(btn) {
+  const row = btn.closest('.exercise-row');
+  const panel = row.querySelector('.sprint-panel');
+  if (!panel) return;
+  const isOpen = panel.classList.toggle('open');
+  btn.classList.toggle('active', isOpen);
+  btn.textContent = isOpen ? 'Sprint benefit ▴' : 'Sprint benefit ▾';
 }
 
 // ===== WEEK SELECTORS =====
 function buildWeeks(containerId, weeks, prefix) {
   const c = document.getElementById(containerId);
+  c.style.gridTemplateColumns = `repeat(${weeks.length}, 1fr)`;
   c.innerHTML = weeks.map((w,i) => `<button class="week-btn${i===0?' active':''}" onclick="selectWeek('${prefix}','${w}',this)">${w}</button>`).join('');
 }
 
@@ -1213,30 +2203,79 @@ function selectWeek(phase, wk, btn) {
 
 function loadWeekData(phase) {
   const wk = currentWeek[phase] || 'Wk1';
-  document.querySelectorAll('#tab-' + (phase==='phase1'?'phase1':phase==='phase2'?'phase2':'preseason') + ' .log-field').forEach(el => {
+  const tabId = 'tab-' + phase;
+  document.querySelectorAll('#' + tabId + ' .log-field').forEach(el => {
     const rawKey = el.dataset.key;
     if (!rawKey) return;
     const key = rawKey.replace('WK', wk);
     if (el.tagName === 'TEXTAREA' || el.type === 'text' || el.type === 'number') {
       el.value = load(key);
+      // If note field has value, show it and mark button
+      if (rawKey.includes('_feel_')) {
+        const noteField = el.closest('.note-inline-field');
+        const btn = noteField && noteField.previousElementSibling;
+        if (el.value && noteField && btn) {
+          noteField.classList.add('open');
+          btn.classList.add('has-note');
+        }
+      }
     }
   });
-  // Restore ratings
-  document.querySelectorAll('#tab-' + (phase==='phase1'?'phase1':phase==='phase2'?'phase2':'preseason') + ' .rating-row').forEach(row => {
+  document.querySelectorAll('#' + tabId + ' .rating-row').forEach(row => {
     const rawKey = row.dataset.key;
     if (!rawKey) return;
     const key = rawKey.replace('WK', wk);
     const val = parseInt(load(key)) || 0;
     row.querySelectorAll('.star').forEach((s,i) => s.classList.toggle('filled', i < val));
   });
+  // Restore alt selections
+  document.querySelectorAll('#' + tabId + ' .exercise-row').forEach(row => {
+    const originalName = row.dataset.exName;
+    const prefix = row.dataset.exPrefix;
+    if (!originalName || !prefix) return;
+    const key = originalName.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'');
+    const savedAlt = load(`${prefix}_${key}_alt_${wk}`);
+    const select = row.querySelector('.alt-select');
+    if (select && savedAlt) {
+      select.value = savedAlt;
+      row.querySelector('.ex-name').textContent = savedAlt;
+    } else if (select) {
+      select.value = '';
+      row.querySelector('.ex-name').textContent = originalName;
+    }
+  });
+}
+
+// ===== GOAL EDITING =====
+function editGoal(item) {
+  if (item.querySelector('input')) return; // already editing
+  const valEl = item.querySelector('.goal-val');
+  const prEl = item.querySelector('.goal-pr');
+  const valKey = valEl.dataset.key;
+  const prKey = prEl.dataset.key;
+  const valText = load(valKey) || valEl.textContent;
+  const prText = load(prKey) || prEl.textContent;
+
+  valEl.innerHTML = `<input class="goal-val-input" value="${valText}" onclick="event.stopPropagation()" onblur="saveGoal(this)" onkeydown="if(event.key==='Enter')this.blur()">`;
+  prEl.innerHTML = `<input class="goal-pr-input" value="${prText}" onclick="event.stopPropagation()" onblur="saveGoal(this)" onkeydown="if(event.key==='Enter')this.blur()">`;
+  valEl.querySelector('input').focus();
+}
+
+function saveGoal(input) {
+  const item = input.closest('.goal-item');
+  const isVal = input.classList.contains('goal-val-input');
+  const parent = input.parentElement;
+  const key = parent.dataset.key;
+  save(key, input.value);
+  parent.textContent = input.value;
 }
 
 // ===== TABS =====
-function showTab(id) {
+function showTab(id, e) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  event.target.classList.add('active');
+  if (e && e.target) e.target.classList.add('active');
 }
 
 // ===== TOGGLE SESSION =====
@@ -1266,22 +2305,20 @@ function getPhaseFromElement(el) {
   return 'preseason';
 }
 
-// ===== SAVE ALL =====
+// ===== SAVE =====
 function saveAll() {
   document.querySelectorAll('.log-field').forEach(el => {
     const rawKey = el.dataset.key;
     if (!rawKey || !rawKey.includes('WK')) return;
     const phase = getPhaseFromElement(el);
     const wk = currentWeek[phase] || 'Wk1';
-    const key = rawKey.replace('WK', wk);
-    save(key, el.value || '');
+    save(rawKey.replace('WK', wk), el.value || '');
   });
   const toast = document.getElementById('toast');
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
-// Auto-save on input
 document.addEventListener('input', e => {
   if (e.target.classList.contains('log-field')) {
     const rawKey = e.target.dataset.key;
@@ -1310,8 +2347,723 @@ function toggleCheck(el, i) {
   save('checklist_' + i, isChecked ? '1' : '0');
 }
 
-// ===== INIT =====
-function init() {
+// ===== RECIPE DATA =====
+const RECIPES = [
+  // DRINKS
+  {
+    cat: 'drinks', emoji: '🍋', name: 'Electrolyte Lemon Ginger Water',
+    time: '5 min · No cook', tags: ['heat', 'pre', 'post'],
+    desc: 'The ultimate Tokyo heat hydration drink. Better than sports drinks.',
+    ingredients: [
+      { name: 'Water', amount: '500 ml' },
+      { name: 'Fresh lemon juice', amount: '½ lemon' },
+      { name: 'Fresh ginger, grated', amount: '1 tsp' },
+      { name: 'Honey or maple syrup', amount: '1 tsp' },
+      { name: 'Himalayan pink salt', amount: '⅛ tsp' },
+      { name: 'Ice cubes', amount: 'plenty' },
+    ],
+    steps: [
+      'Squeeze lemon into a large glass or bottle.',
+      'Grate fresh ginger directly in (or use a squeeze of ginger juice).',
+      'Add honey/maple and salt — stir until dissolved.',
+      'Top with cold water and load up with ice.',
+      'Drink 30 min before track or sip during session.',
+    ],
+    note: 'Scale up to 1L for long sessions. The salt is essential — don\'t skip it. Add a pinch of magnesium powder if you have it.'
+  },
+  {
+    cat: 'drinks', emoji: '🍵', name: 'Iced Matcha Recovery Latte',
+    time: '5 min · No cook', tags: ['recovery', 'quick'],
+    desc: 'L-theanine in matcha + protein = calm focus + muscle repair. Great post-session.',
+    ingredients: [
+      { name: 'Matcha powder (ceremonial grade)', amount: '1 tsp' },
+      { name: 'Hot water (70°C — not boiling)', amount: '50 ml' },
+      { name: 'Oat milk or milk of choice', amount: '200 ml' },
+      { name: 'Honey', amount: '1 tsp' },
+      { name: 'Ice', amount: 'large glass full' },
+      { name: 'Collagen powder (optional)', amount: '1 scoop' },
+    ],
+    steps: [
+      'Whisk matcha with hot water until smooth and frothy — no lumps.',
+      'Fill a glass with ice and pour cold milk over it.',
+      'Pour matcha shot slowly over the milk for a layered look.',
+      'Stir in honey and collagen if using.',
+      'Drink within 30–60 min post-session.',
+    ],
+    note: 'Matcha has less caffeine than coffee but the L-theanine prevents the jittery crash. Perfect for afternoon recovery without disrupting sleep.'
+  },
+  {
+    cat: 'drinks', emoji: '🫐', name: 'Tart Cherry + Hibiscus Iced Tea',
+    time: '10 min + chill · No cook', tags: ['recovery', 'heat'],
+    desc: 'Tart cherry is one of the most evidence-backed muscle recovery compounds available.',
+    ingredients: [
+      { name: 'Dried hibiscus flowers (or tea bags)', amount: '3 tbsp / 2 bags' },
+      { name: 'Tart cherry juice (unsweetened)', amount: '100 ml' },
+      { name: 'Hot water', amount: '400 ml' },
+      { name: 'Honey', amount: '1–2 tsp' },
+      { name: 'Fresh mint leaves', amount: 'handful' },
+      { name: 'Ice', amount: 'plenty' },
+    ],
+    steps: [
+      'Steep hibiscus in hot water for 5 minutes — it turns a deep crimson.',
+      'Strain and allow to cool to room temperature.',
+      'Add tart cherry juice and honey, stir well.',
+      'Pour over ice and garnish with fresh mint.',
+      'Drink within 30 min of a hard session.',
+    ],
+    note: 'Tart cherry juice reduces post-exercise muscle soreness by 20–30% in studies. The anthocyanins in both tart cherry and hibiscus are the active compounds.'
+  },
+  {
+    cat: 'drinks', emoji: '🥥', name: 'Coconut Water Electrolyte Slush',
+    time: '5 min + freeze · Freezer', tags: ['heat', 'pre', 'post'],
+    desc: 'Freeze coconut water into cubes then blend for a slushy pre-race or mid-summer treat.',
+    ingredients: [
+      { name: 'Coconut water (no added sugar)', amount: '500 ml' },
+      { name: 'Fresh lime juice', amount: '1 lime' },
+      { name: 'Pineapple chunks (fresh or frozen)', amount: '100g' },
+      { name: 'Pink salt', amount: 'pinch' },
+      { name: 'Ice cubes', amount: '1 cup' },
+    ],
+    steps: [
+      'Pour coconut water into ice cube trays and freeze overnight.',
+      'Blend frozen coconut water cubes with lime juice, pineapple, salt and regular ice.',
+      'Blend on high until slushy — add a splash of water if too thick.',
+      'Pour into a bottle and sip slowly 45 min before training.',
+    ],
+    note: 'Coconut water has naturally occurring potassium and sodium. Works as both a pre-session cooling drink and post-session replenishment.'
+  },
+
+  // SHAKES
+  {
+    cat: 'shakes', emoji: '🍌', name: 'Banana Oat Power Shake',
+    time: '5 min · Blender', tags: ['pre', 'quick'],
+    desc: 'The classic pre-session shake. Easy carbs, potassium, and just enough protein.',
+    ingredients: [
+      { name: 'Ripe banana (frozen is best)', amount: '1 large' },
+      { name: 'Rolled oats', amount: '40g' },
+      { name: 'Whey or pea protein', amount: '1 scoop' },
+      { name: 'Milk or oat milk', amount: '250 ml' },
+      { name: 'Peanut butter', amount: '1 tbsp' },
+      { name: 'Honey', amount: '1 tsp' },
+      { name: 'Ice', amount: 'handful' },
+    ],
+    steps: [
+      'Add all ingredients to blender.',
+      'Blend on high for 45 seconds until smooth.',
+      'Drink 60–90 min before a gym session or 2 hrs before track.',
+    ],
+    note: 'Frozen banana makes it thicker and colder — great in summer. Don\'t drink this right before a sprint session — the fat and fibre slows digestion. Give it time.'
+  },
+  {
+    cat: 'shakes', emoji: '🍓', name: 'Berry Recovery Protein Smoothie',
+    time: '5 min · Blender', tags: ['post', 'recovery'],
+    desc: 'Antioxidant-rich berries + fast protein for the 30-min post-session window.',
+    ingredients: [
+      { name: 'Mixed frozen berries (blueberry, strawberry, raspberry)', amount: '150g' },
+      { name: 'Whey isolate or Greek yogurt', amount: '1 scoop / 150g' },
+      { name: 'Spinach (optional — you won\'t taste it)', amount: '1 large handful' },
+      { name: 'Oat milk', amount: '200 ml' },
+      { name: 'Chia seeds', amount: '1 tbsp' },
+      { name: 'Honey or maple syrup', amount: '1 tsp' },
+    ],
+    steps: [
+      'Add milk first (prevents blending issues), then all other ingredients.',
+      'Blend 45 seconds on high.',
+      'Drink within 30 minutes of finishing your session.',
+      'Let chia seeds swell for extra fibre — drink before they thicken if you prefer.',
+    ],
+    note: 'The 30-min post-workout window is real for glycogen replenishment. Frozen berries keep the shake cold in summer heat — no extra ice needed.'
+  },
+  {
+    cat: 'shakes', emoji: '🥑', name: 'Avocado Cacao Recovery Shake',
+    time: '5 min · Blender', tags: ['recovery', 'post'],
+    desc: 'Healthy fats + magnesium from cacao = deep muscle recovery. Best for evening after a hard day.',
+    ingredients: [
+      { name: 'Ripe avocado', amount: '½' },
+      { name: 'Raw cacao powder', amount: '2 tbsp' },
+      { name: 'Banana (frozen)', amount: '½' },
+      { name: 'Milk of choice', amount: '250 ml' },
+      { name: 'Protein powder (chocolate or vanilla)', amount: '1 scoop' },
+      { name: 'Honey', amount: '1 tsp' },
+      { name: 'Pinch of salt', amount: 'pinch' },
+    ],
+    steps: [
+      'Scoop avocado flesh into blender.',
+      'Add all remaining ingredients.',
+      'Blend on high for 45 seconds until velvety smooth.',
+      'Best enjoyed 1–2 hrs before bed on hard training days.',
+    ],
+    note: 'Cacao is a natural source of magnesium which is depleted through sweat. Avocado\'s healthy fats support testosterone and hormonal recovery. Tastes like chocolate mousse.'
+  },
+  {
+    cat: 'shakes', emoji: '🥭', name: 'Mango Turmeric Anti-Inflammatory Shake',
+    time: '5 min · Blender', tags: ['recovery', 'heat'],
+    desc: 'Turmeric + black pepper combination is one of the most effective natural anti-inflammatories.',
+    ingredients: [
+      { name: 'Frozen mango chunks', amount: '150g' },
+      { name: 'Turmeric powder', amount: '1 tsp' },
+      { name: 'Black pepper (activates turmeric)', amount: 'tiny pinch' },
+      { name: 'Ginger (fresh or powder)', amount: '½ tsp' },
+      { name: 'Coconut milk', amount: '200 ml' },
+      { name: 'Protein powder (vanilla)', amount: '1 scoop' },
+      { name: 'Honey', amount: '1 tsp' },
+    ],
+    steps: [
+      'Add coconut milk to blender first.',
+      'Add frozen mango, turmeric, pepper, ginger, protein and honey.',
+      'Blend 45 seconds — beautiful golden colour.',
+      'Drink post-session or as a recovery meal replacement on easy days.',
+    ],
+    note: 'Black pepper increases curcumin (turmeric\'s active compound) absorption by 2000%. Don\'t skip it. Mango is one of the best electrolyte-rich fruits for summer athletes.'
+  },
+
+  // MEALS
+  {
+    cat: 'meals', emoji: '🍚', name: 'Japanese Rice Bowl (Sprint Athlete Bowl)',
+    time: '20 min · Stovetop', tags: ['post', 'recovery'],
+    desc: 'A balanced Japanese-inspired meal built around what sprint athletes actually need.',
+    ingredients: [
+      { name: 'Japanese short-grain rice (uncooked)', amount: '150g' },
+      { name: 'Salmon fillet or chicken thigh', amount: '150g' },
+      { name: 'Edamame (frozen, shelled)', amount: '80g' },
+      { name: 'Avocado', amount: '½' },
+      { name: 'Cucumber, sliced', amount: '½' },
+      { name: 'Soy sauce', amount: '1 tbsp' },
+      { name: 'Sesame oil', amount: '1 tsp' },
+      { name: 'Sesame seeds', amount: '1 tsp' },
+      { name: 'Nori (optional)', amount: '1 sheet, torn' },
+    ],
+    steps: [
+      'Cook rice using your rice cooker (rinse 2–3x first).',
+      'Pan-cook salmon 3 min each side on medium-high, season with soy sauce last 30 sec.',
+      'Microwave edamame from frozen (3 min).',
+      'Slice cucumber and avocado.',
+      'Bowl: rice base → salmon → edamame → cucumber → avocado → drizzle of soy + sesame oil → seeds + nori.',
+    ],
+    note: 'Japanese rice is the best post-sprint carbohydrate source — high glycaemic, easily digestible, minimal fibre to cause GI issues. Salmon gives you omega-3s for inflammation.'
+  },
+  {
+    cat: 'meals', emoji: '🥚', name: 'Spinach & Feta Egg Scramble (5-min Breakfast)',
+    time: '8 min · One pan', tags: ['pre', 'quick'],
+    desc: 'High protein, fast to make, easy to digest. Ideal before a morning gym session.',
+    ingredients: [
+      { name: 'Eggs', amount: '3 large' },
+      { name: 'Baby spinach', amount: '2 large handfuls' },
+      { name: 'Feta cheese, crumbled', amount: '40g' },
+      { name: 'Cherry tomatoes, halved', amount: '6–8' },
+      { name: 'Olive oil', amount: '1 tsp' },
+      { name: 'Salt and black pepper', amount: 'to taste' },
+      { name: 'Toast or rice cakes', amount: '2 slices' },
+    ],
+    steps: [
+      'Crack eggs into a bowl, whisk well with a pinch of salt.',
+      'Heat oil in non-stick pan on medium, add tomatoes and cook 1 min.',
+      'Add spinach — stir until just wilted (30 sec).',
+      'Pour in eggs, stir gently with spatula until just set but still creamy.',
+      'Remove from heat, fold in feta, serve on toast or rice cakes.',
+    ],
+    note: 'Eat 90 min before a gym session. The feta adds sodium (good for pre-workout) and the eggs give complete amino acids for muscle priming.'
+  },
+  {
+    cat: 'meals', emoji: '🍜', name: 'Cold Soba Noodle Bowl (Zaru Soba Style)',
+    time: '15 min', tags: ['heat', 'recovery', 'post'],
+    desc: 'Perfect summer recovery meal. Cold noodles, easy protein, no cooking required beyond boiling.',
+    ingredients: [
+      { name: 'Soba noodles (buckwheat)', amount: '100g dry' },
+      { name: 'Soft-boiled eggs', amount: '2' },
+      { name: 'Cucumber, julienned', amount: '½' },
+      { name: 'Nori, torn', amount: '1 sheet' },
+      { name: 'Mentsuyu (tsuyu sauce) diluted or soy + dashi', amount: '3 tbsp' },
+      { name: 'Spring onion, sliced', amount: '2 stalks' },
+      { name: 'Wasabi (optional)', amount: '½ tsp' },
+      { name: 'Sesame seeds', amount: '1 tsp' },
+    ],
+    steps: [
+      'Boil soba 4–5 min, drain and rinse with cold water until fully cold.',
+      'Soft boil eggs: 6.5 min boil → ice bath → peel and halve.',
+      'Arrange noodles in bowl, top with egg halves, cucumber, nori, spring onion.',
+      'Mix mentsuyu with a little water as a dipping sauce or pour over directly.',
+      'Garnish with sesame seeds and wasabi.',
+    ],
+    note: 'Buckwheat noodles have a lower GI than white noodles and contain rutin — good for blood vessel health. Perfect for post-track meals in July/August when you don\'t want anything hot.'
+  },
+  {
+    cat: 'meals', emoji: '🥗', name: 'Salmon Rice Paper Rolls (Prep-Friendly)',
+    time: '25 min', tags: ['post', 'recovery'],
+    desc: 'Make a batch on a rest day — they keep in the fridge for 2 days. Great for pre-track lunch.',
+    ingredients: [
+      { name: 'Rice paper wrappers', amount: '8 sheets' },
+      { name: 'Smoked or cooked salmon', amount: '200g' },
+      { name: 'Rice vermicelli noodles (cooked, cooled)', amount: '100g' },
+      { name: 'Avocado, sliced', amount: '1' },
+      { name: 'Cucumber, matchsticks', amount: '1' },
+      { name: 'Carrot, grated', amount: '1 small' },
+      { name: 'Fresh mint and basil leaves', amount: 'small bunch' },
+      { name: 'Sweet chilli or peanut sauce', amount: 'for dipping' },
+    ],
+    steps: [
+      'Prepare all fillings and lay out on a board.',
+      'Dip one rice paper wrapper in warm water for 10–15 seconds until pliable.',
+      'Lay flat on a damp surface. Add fillings in a line across the bottom third.',
+      'Fold sides inward, then roll tightly from the bottom up.',
+      'Repeat. Store in a container with damp paper between layers.',
+      'Serve with dipping sauce.',
+    ],
+    note: 'Make 8–10 on Sunday. Eat 2–3 as a pre-session lunch (3 hrs before track) or as a rest day lunch. Low in fat, high in carbs and protein — ideal timing food.'
+  },
+  {
+    cat: 'meals', emoji: '🍗', name: 'Teriyaki Chicken + Sweet Potato Rice Bowl',
+    time: '30 min', tags: ['post', 'recovery'],
+    desc: 'Classic training meal — glycogen replenishment carbs, lean protein, and a flavour you\'ll actually crave.',
+    ingredients: [
+      { name: 'Chicken thigh (boneless, skinless)', amount: '200g' },
+      { name: 'Japanese rice, cooked', amount: '200g cooked' },
+      { name: 'Sweet potato, cubed', amount: '150g' },
+      { name: 'Soy sauce', amount: '2 tbsp' },
+      { name: 'Mirin', amount: '1 tbsp' },
+      { name: 'Honey', amount: '1 tsp' },
+      { name: 'Garlic, minced', amount: '1 clove' },
+      { name: 'Sesame oil', amount: '1 tsp' },
+      { name: 'Broccoli or green veg', amount: '100g' },
+    ],
+    steps: [
+      'Mix soy, mirin, honey and garlic into a marinade. Marinate chicken 15 min+.',
+      'Roast sweet potato cubes at 200°C for 20 min, or microwave 5 min.',
+      'Pan-cook chicken on medium-high 4 min each side, pour remaining marinade over and let caramelise.',
+      'Steam or microwave broccoli.',
+      'Slice chicken, arrange over rice with sweet potato and broccoli.',
+      'Drizzle with sesame oil and any pan glaze.',
+    ],
+    note: 'Sweet potato gives you beta-carotene and a lower GI carb source than white rice alone. Make double the chicken — it reheats perfectly the next day.'
+  },
+
+  // SNACKS
+  {
+    cat: 'snacks', emoji: '🥜', name: 'Peanut Butter Rice Cake Stack',
+    time: '3 min · No cook', tags: ['pre', 'quick'],
+    desc: 'The quickest pre-session snack. 150–200 calories, easy to digest, tastes great.',
+    ingredients: [
+      { name: 'Rice cakes (plain)', amount: '3' },
+      { name: 'Natural peanut butter', amount: '2 tbsp' },
+      { name: 'Banana, sliced', amount: '½' },
+      { name: 'Honey drizzle', amount: '1 tsp' },
+      { name: 'Chia seeds (optional)', amount: '½ tsp' },
+    ],
+    steps: [
+      'Spread peanut butter evenly across rice cakes.',
+      'Layer banana slices on top.',
+      'Drizzle with honey, sprinkle chia seeds.',
+      'Eat 45–60 min before a gym session.',
+    ],
+    note: 'Rice cakes have almost no fibre so they digest fast — no GI discomfort before lifting. The banana adds potassium. Don\'t eat this right before track — give it at least 90 min.'
+  },
+  {
+    cat: 'snacks', emoji: '🥚', name: 'Soy Sauce Soft-Boiled Eggs (Ajitsuke Tamago)',
+    time: '10 min + marinate · Fridge', tags: ['recovery', 'post'],
+    desc: 'Japanese ramen-style marinated eggs. Batch prep 6 on Sunday, snack all week.',
+    ingredients: [
+      { name: 'Eggs', amount: '6' },
+      { name: 'Soy sauce', amount: '4 tbsp' },
+      { name: 'Mirin', amount: '2 tbsp' },
+      { name: 'Water', amount: '4 tbsp' },
+      { name: 'Sugar', amount: '1 tsp' },
+    ],
+    steps: [
+      'Boil eggs exactly 6.5 minutes from boiling water — then ice bath immediately.',
+      'Peel carefully.',
+      'Mix soy, mirin, water and sugar in a zip bag or container.',
+      'Add peeled eggs, marinate in fridge minimum 4 hrs, best overnight.',
+      'Eat 1–2 as a post-session protein snack or sliced over rice.',
+    ],
+    note: 'Each egg = 6g protein. These marinated eggs are seriously good and last 3–4 days in the fridge. The marinade can be reused once. Perfect gym bag snack (leave in the fridge until you\'re back).'
+  },
+  {
+    cat: 'snacks', emoji: '🍙', name: 'Homemade Onigiri (Rice Balls)',
+    time: '20 min · Batch-friendly', tags: ['pre', 'recovery', 'quick'],
+    desc: 'The original athlete fuel in Japan. Make a batch, store in fridge, grab on your way out.',
+    ingredients: [
+      { name: 'Japanese short-grain rice, cooked warm', amount: '300g' },
+      { name: 'Tuna (canned in water) + mayo', amount: '1 tin + 1 tsp' },
+      { name: 'Salmon flakes (sake flake) or pickled plum (umeboshi)', amount: '2–3 tbsp' },
+      { name: 'Nori sheets', amount: '2, cut into strips' },
+      { name: 'Salt', amount: 'small pinch' },
+    ],
+    steps: [
+      'Wet hands, add salt, take ~100g warm rice.',
+      'Make an indent, add 1 tbsp tuna-mayo or salmon filling.',
+      'Close the rice around the filling and press firmly into a triangle.',
+      'Wrap with a nori strip.',
+      'Wrap in cling film and refrigerate. Eat within 24 hrs.',
+    ],
+    note: 'Eat 1–2 onigiri 2 hrs before a morning track session. They\'re the ideal carb-to-protein ratio for priming without overloading. Buy nori in bulk from any Japanese supermarket.'
+  },
+  {
+    cat: 'snacks', emoji: '🫘', name: 'Edamame with Sea Salt',
+    time: '5 min · Boil or microwave', tags: ['recovery', 'quick'],
+    desc: 'The simplest, most complete plant protein snack. A staple for a reason.',
+    ingredients: [
+      { name: 'Frozen edamame in pods', amount: '200g' },
+      { name: 'Sea salt or furikake', amount: 'generous pinch' },
+      { name: 'Lemon or lime juice (optional)', amount: 'squeeze' },
+    ],
+    steps: [
+      'Microwave edamame pods 4 min, or boil 3–4 min from frozen.',
+      'Drain and season generously with sea salt while hot.',
+      'Optional: squeeze of lemon or sprinkle furikake.',
+      'Pop beans out of pods and eat.',
+    ],
+    note: '200g edamame = ~17g protein + 14g carbs. Also a good source of iron and folate. Available everywhere in Japan, frozen and fresh. Costs almost nothing.'
+  },
+  {
+    cat: 'snacks', emoji: '🧀', name: 'Greek Yogurt with Berries + Granola',
+    time: '3 min · No cook', tags: ['post', 'recovery', 'quick'],
+    desc: 'Post-session protein hit that feels like a treat. Casein protein in yogurt = slow-release recovery.',
+    ingredients: [
+      { name: 'Full-fat Greek yogurt', amount: '200g' },
+      { name: 'Mixed berries (fresh or frozen-thawed)', amount: '80g' },
+      { name: 'Granola or muesli', amount: '30g' },
+      { name: 'Honey drizzle', amount: '1 tsp' },
+      { name: 'Chia or flaxseeds', amount: '1 tsp' },
+    ],
+    steps: [
+      'Spoon yogurt into a bowl.',
+      'Top with berries, granola, seeds and honey.',
+      'Eat within 30–45 min post-session.',
+    ],
+    note: 'Greek yogurt has 15–20g protein per 200g and contains casein — a slow-digesting protein that\'s especially good for overnight muscle recovery if you eat it before bed.'
+  },
+
+  // TREATS
+  {
+    cat: 'treats', emoji: '🍫', name: 'Dark Chocolate Protein Balls',
+    time: '20 min + chill · No bake', tags: ['recovery', 'quick'],
+    desc: 'Make 12 at once. High protein, satisfying, hits the sweet craving. Keep in the freezer.',
+    ingredients: [
+      { name: 'Rolled oats', amount: '80g' },
+      { name: 'Natural peanut butter', amount: '80g' },
+      { name: 'Protein powder (chocolate)', amount: '1 scoop' },
+      { name: 'Honey or maple syrup', amount: '2 tbsp' },
+      { name: 'Dark chocolate chips (70%+)', amount: '40g' },
+      { name: 'Chia seeds', amount: '1 tbsp' },
+      { name: 'Vanilla extract', amount: '½ tsp' },
+    ],
+    steps: [
+      'Mix all ingredients in a bowl until combined — use your hands.',
+      'If mixture is too dry, add 1 tsp water. Too wet — add more oats.',
+      'Roll into 12 equal balls.',
+      'Refrigerate 30 min to firm up, or freeze for 15 min.',
+      'Store in an airtight container in fridge (1 week) or freezer (1 month).',
+    ],
+    note: 'Each ball is ~90–100 calories with 5–6g protein. Have 1–2 as a post-session snack or a late-night treat when you want something sweet but not junk.'
+  },
+  {
+    cat: 'treats', emoji: '🍦', name: 'Frozen Banana Nice Cream',
+    time: '5 min + freeze bananas · Blender', tags: ['heat', 'recovery'],
+    desc: 'Zero guilt ice cream. Tastes shockingly like soft-serve. Perfect for Tokyo summer evenings.',
+    ingredients: [
+      { name: 'Ripe bananas (peeled, frozen overnight)', amount: '3 large' },
+      { name: 'Peanut butter', amount: '2 tbsp' },
+      { name: 'Cacao powder or cocoa', amount: '1 tbsp' },
+      { name: 'Vanilla extract', amount: '½ tsp' },
+      { name: 'Pinch of salt', amount: 'pinch' },
+    ],
+    steps: [
+      'Freeze ripe (spotty) bananas peeled in a zip bag at least one night ahead.',
+      'Break frozen bananas into chunks and add to food processor or blender.',
+      'Add peanut butter, cacao, vanilla and salt.',
+      'Blend — it will be crumbly at first, then suddenly smooth. Scrape down sides.',
+      'Eat immediately as soft-serve or freeze another 30 min for a firmer scoop.',
+    ],
+    note: 'The riper the banana, the sweeter. Try different flavours: mango + coconut, strawberry + honey, blueberry + lemon. Keeps in freezer for 2 weeks (thaw 5 min before eating).'
+  },
+  {
+    cat: 'treats', emoji: '🍬', name: 'Mango Chilli Lime Frozen Bars',
+    time: '15 min + freeze · Freezer', tags: ['heat', 'quick'],
+    desc: 'Cold, spicy, sweet and sour. Japanese summer in a frozen bar.',
+    ingredients: [
+      { name: 'Fresh or frozen mango, blended', amount: '300g' },
+      { name: 'Fresh lime juice', amount: '2 limes' },
+      { name: 'Honey', amount: '2 tbsp' },
+      { name: 'Chilli flakes or tajin', amount: '½ tsp' },
+      { name: 'Pinch of salt', amount: 'pinch' },
+    ],
+    steps: [
+      'Blend mango until completely smooth.',
+      'Add lime juice, honey, salt and chilli — blend again.',
+      'Taste and adjust sweetness/heat.',
+      'Pour into popsicle moulds or small paper cups with sticks.',
+      'Freeze minimum 4 hours or overnight.',
+    ],
+    note: 'These are genuinely refreshing on 35°C training days. Mango is rich in vitamin C (good for collagen/tendon health) and beta-carotene. Batch make 8–10 at a time.'
+  },
+  {
+    cat: 'treats', emoji: '🥜', name: 'Miso Caramel Popcorn',
+    time: '15 min · Stovetop', tags: ['quick'],
+    desc: 'Sweet, salty, umami, crunchy. The best movie night snack that also happens to be whole grain.',
+    ingredients: [
+      { name: 'Popcorn kernels', amount: '60g' },
+      { name: 'Butter', amount: '30g' },
+      { name: 'White miso paste', amount: '1 tbsp' },
+      { name: 'Honey or brown sugar', amount: '2 tbsp' },
+      { name: 'Coconut oil or neutral oil', amount: '1 tbsp' },
+    ],
+    steps: [
+      'Pop kernels in a covered pot with oil on medium-high heat, shaking constantly.',
+      'Remove popped corn to a large bowl.',
+      'In the same pot, melt butter on low heat, add miso and honey, stir 2 min.',
+      'Pour miso caramel over popcorn and toss well.',
+      'Spread on baking paper to cool and crisp for 5 min before eating.',
+    ],
+    note: 'Miso adds umami depth to sweet caramel — it sounds strange and tastes incredible. Popcorn is actually a whole grain with decent fibre. A rest-day treat that won\'t undo the week.'
+  },
+
+  // DESSERTS
+  {
+    cat: 'desserts', emoji: '🍮', name: 'Chia Pudding (Overnight)',
+    time: '5 min + overnight · Fridge', tags: ['recovery', 'quick'],
+    desc: 'Set it and forget it. Wake up to a complete breakfast or dessert that\'s rich in omega-3s.',
+    ingredients: [
+      { name: 'Chia seeds', amount: '40g' },
+      { name: 'Coconut milk or oat milk', amount: '350 ml' },
+      { name: 'Honey or maple syrup', amount: '1 tbsp' },
+      { name: 'Vanilla extract', amount: '½ tsp' },
+      { name: 'Mango or berries for topping', amount: '80g' },
+      { name: 'Granola for crunch', amount: '20g' },
+    ],
+    steps: [
+      'Mix chia seeds with milk, honey and vanilla in a jar or bowl.',
+      'Stir well — then stir again after 5 min to prevent clumping.',
+      'Cover and refrigerate overnight.',
+      'In the morning, top with fresh mango or berries and granola.',
+      'Can also be eaten as a dessert after dinner.',
+    ],
+    note: 'Chia seeds are one of the best plant sources of omega-3 fatty acids. 40g has 8g protein and 10g fibre. Variations: matcha chia (add 1 tsp matcha), chocolate (2 tsp cacao).'
+  },
+  {
+    cat: 'desserts', emoji: '🍰', name: 'Japanese-Style Cheesecake (Light & Fluffy)',
+    time: '90 min · Oven · Weekend project', tags: ['recovery'],
+    desc: 'The iconic jiggly cotton-soft cheesecake. Perfect Sunday rest-day bake.',
+    ingredients: [
+      { name: 'Cream cheese, softened', amount: '200g' },
+      { name: 'Unsalted butter', amount: '30g' },
+      { name: 'Milk', amount: '50 ml' },
+      { name: 'Eggs, separated', amount: '4 large' },
+      { name: 'Caster sugar', amount: '60g' },
+      { name: 'Cake flour or plain flour', amount: '30g' },
+      { name: 'Cornstarch', amount: '15g' },
+      { name: 'Lemon juice', amount: '1 tsp' },
+    ],
+    steps: [
+      'Preheat oven to 160°C. Line a round tin with baking paper.',
+      'Melt cream cheese, butter and milk together over a double boiler until smooth.',
+      'Cool slightly, then mix in egg yolks, flour and cornstarch.',
+      'In a separate bowl, whisk egg whites and lemon juice until foamy, add sugar gradually, whisk to stiff peaks.',
+      'Gently fold egg whites into cheese mixture in 3 additions.',
+      'Pour into tin, bake in a water bath at 160°C for 25 min, then 150°C for 55 min.',
+      'Leave in oven to cool slowly with door ajar — prevents sinking.',
+    ],
+    note: 'The water bath (bain-marie) is essential for the texture. Use a larger tray filled 2cm deep with hot water. Jiggly when slightly warm — chills to a creamy firm texture in fridge.'
+  },
+  {
+    cat: 'desserts', emoji: '🥭', name: 'Mango Coconut Panna Cotta',
+    time: '15 min + 4 hrs set · Fridge', tags: ['heat', 'recovery'],
+    desc: 'Silky, cool, tropical. Impressive to make, easier than you think.',
+    ingredients: [
+      { name: 'Coconut milk (full fat)', amount: '400 ml' },
+      { name: 'Gelatin sheets or powder', amount: '8g' },
+      { name: 'Caster sugar', amount: '3 tbsp' },
+      { name: 'Vanilla extract', amount: '1 tsp' },
+      { name: 'Fresh mango puree', amount: '200g' },
+      { name: 'Lime juice', amount: '1 tbsp' },
+    ],
+    steps: [
+      'Soak gelatin sheets in cold water 5 min (or dissolve powder in 2 tbsp warm water).',
+      'Warm coconut milk and sugar in a saucepan on medium heat until sugar dissolves — don\'t boil.',
+      'Squeeze water from gelatin sheets, add to hot coconut milk, stir until dissolved.',
+      'Add vanilla, pour into glasses or moulds, refrigerate 4+ hours.',
+      'Blend mango with lime juice into a smooth sauce.',
+      'Serve panna cotta in glass with mango sauce poured over.',
+    ],
+    note: 'Gelatin from collagen supports tendon and joint health — a genuine bonus for athletes. Mango sauce can be made 2 days ahead. Serve during competition week as a light dessert.'
+  },
+  {
+    cat: 'desserts', emoji: '🍵', name: 'Matcha White Chocolate Mochi',
+    time: '30 min · Microwave + hands', tags: ['recovery', 'heat'],
+    desc: 'Homemade mochi is easier than you think and far better than bought. A proper Japanese summer treat.',
+    ingredients: [
+      { name: 'Shiratamako (glutinous rice flour)', amount: '100g' },
+      { name: 'Matcha powder', amount: '2 tsp' },
+      { name: 'Sugar', amount: '50g' },
+      { name: 'Water', amount: '160 ml' },
+      { name: 'White chocolate or anko (red bean paste)', amount: '100g' },
+      { name: 'Potato starch or cornstarch for dusting', amount: 'plenty' },
+    ],
+    steps: [
+      'Mix shiratamako, matcha and sugar in a microwave-safe bowl.',
+      'Gradually whisk in water until lump-free.',
+      'Microwave on high 2 min, stir — microwave again 1 min, stir until glossy and translucent.',
+      'Dust a surface generously with potato starch, turn out the mochi dough.',
+      'Divide into 8 pieces, flatten each into a disc.',
+      'Place a small cube of white chocolate (or bean paste) in the centre, pinch to seal.',
+      'Roll in starch to prevent sticking.',
+    ],
+    note: 'Shiratamako is available at any supermarket in Japan. The texture is best fresh, but they keep covered at room temperature 1 day (not the fridge — it hardens). Try anko filling for a more traditional version.'
+  },
+
+  // OTHER
+  {
+    cat: 'other', emoji: '🧂', name: 'Homemade Sports Electrolyte Sachets',
+    time: '10 min · Batch prep', tags: ['heat', 'pre', 'quick'],
+    desc: 'Make 10 sachets at once. Cheaper than buying and you control what goes in.',
+    ingredients: [
+      { name: 'Pink Himalayan salt', amount: '1 tsp (per sachet)' },
+      { name: 'Cream of tartar (potassium)', amount: '¼ tsp (per sachet)' },
+      { name: 'Magnesium glycinate powder (optional)', amount: '⅛ tsp (per sachet)' },
+      { name: 'Coconut sugar or honey powder', amount: '1 tsp (per sachet)' },
+      { name: 'Lemon powder or citric acid', amount: '½ tsp (per sachet)' },
+    ],
+    steps: [
+      'Mix all ingredients for one sachet in a small bowl to test the flavour.',
+      'Adjust to taste — more salt if sweating heavily, more sugar for longer sessions.',
+      'Once happy, make a batch: multiply all quantities by 10.',
+      'Store in small zip bags or paper sachets.',
+      'Mix one sachet with 500ml of water before or during any session over 60 min.',
+    ],
+    note: 'Store in a cool dry place, last 6 months. Each sachet costs almost nothing vs. buying Pocari Sweat or Gatorade. The potassium from cream of tartar is key for preventing cramps.'
+  },
+  {
+    cat: 'other', emoji: '🍯', name: 'Turmeric Ginger Recovery Shot',
+    time: '5 min · Blender or juicer', tags: ['recovery', 'quick', 'post'],
+    desc: 'A 60ml shot that punches above its weight. Drink straight after your hardest sessions.',
+    ingredients: [
+      { name: 'Fresh turmeric root', amount: '3 cm' },
+      { name: 'Fresh ginger root', amount: '3 cm' },
+      { name: 'Fresh lemon juice', amount: '½ lemon' },
+      { name: 'Black pepper', amount: 'pinch' },
+      { name: 'Honey', amount: '1 tsp' },
+      { name: 'Water', amount: '3 tbsp' },
+    ],
+    steps: [
+      'Peel and roughly chop turmeric and ginger.',
+      'Blend everything on high with water until smooth.',
+      'Strain through a fine mesh sieve pressing out all liquid.',
+      'Pour into a shot glass and drink immediately.',
+      'Chase with water or dilute in 200ml water if too intense.',
+    ],
+    note: 'Batch-make 5 shots and store in small bottles in the fridge (3–4 days). The lemon juice preserves them. If you can\'t find fresh turmeric, use ½ tsp powder — less potent but still works.'
+  },
+  {
+    cat: 'other', emoji: '🥣', name: 'Overnight Oats (3 Variations)',
+    time: '5 min + overnight · Fridge', tags: ['pre', 'quick'],
+    desc: 'Prep before bed, eat without thinking before morning training. Three flavour options.',
+    ingredients: [
+      { name: 'Rolled oats', amount: '80g' },
+      { name: 'Milk or oat milk', amount: '200 ml' },
+      { name: 'Greek yogurt', amount: '50g' },
+      { name: 'Chia seeds', amount: '1 tbsp' },
+      { name: 'Honey', amount: '1 tbsp' },
+      { name: '— Variation 1: Peanut butter + banana + cacao', amount: '2 tbsp / ½ / 1 tbsp' },
+      { name: '— Variation 2: Mango + coconut flakes + lime zest', amount: '80g / 1 tbsp / ½' },
+      { name: '— Variation 3: Matcha + blueberry + vanilla', amount: '1 tsp / 60g / ½ tsp' },
+    ],
+    steps: [
+      'Mix oats, milk, yogurt, chia and honey in a jar.',
+      'Stir in whichever variation ingredients you choose.',
+      'Seal and refrigerate overnight.',
+      'In the morning, stir — add a splash more milk if too thick.',
+      'Top with fresh fruit or extra toppings and eat cold.',
+    ],
+    note: 'Eat 90 min before gym, or 2+ hrs before track. The oats soften overnight so there\'s no cooking. These travel well in a jar — good for taking to the track if you eat on the way.'
+  },
+  {
+    cat: 'other', emoji: '🫙', name: 'Batch-Cook Prep Strategy (Sunday Reset)',
+    time: '60–90 min · Weekly system', tags: ['recovery'],
+    desc: 'The system that makes eating right effortless all week. Do this every Sunday rest day.',
+    ingredients: [
+      { name: 'Japanese rice', amount: '4 servings (cook in bulk)' },
+      { name: 'Chicken thighs or salmon', amount: '600g' },
+      { name: 'Eggs for ajitsuke tamago', amount: '6' },
+      { name: 'Sweet potato, roasted cubed', amount: '400g' },
+      { name: 'Pre-made overnight oats', amount: '3 jars' },
+      { name: 'Protein balls / energy snacks', amount: '12 balls' },
+      { name: 'Chopped veg (cucumber, carrot, edamame)', amount: 'for the week' },
+    ],
+    steps: [
+      'Start rice cooker — it runs itself while you do everything else.',
+      'Roast sweet potato + any other veg at 200°C (25 min).',
+      'Cook protein (bake or pan) while veg roasts.',
+      'Soft-boil and marinate 6 eggs.',
+      'Make overnight oats in 3 jars.',
+      'Make one batch of protein balls.',
+      'Portion rice and protein into containers.',
+      'Store everything in fridge — you\'re set for Mon–Thu.',
+    ],
+    note: 'This takes 60–90 min once a week and eliminates all decisions about what to eat. When food is ready in the fridge, you eat better automatically. Do it while watching something.'
+  },
+];
+
+let activeRecipeCat = 'all';
+
+function filterRecipes(cat, btn) {
+  activeRecipeCat = cat;
+  document.querySelectorAll('.recipe-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRecipes();
+}
+
+function renderRecipes() {
+  const list = document.getElementById('recipe-list');
+  if (!list) return;
+  const filtered = activeRecipeCat === 'all' ? RECIPES : RECIPES.filter(r => r.cat === activeRecipeCat);
+  list.innerHTML = filtered.map((r, i) => {
+    const tagHtml = r.tags.map(t => `<span class="recipe-tag tag-${t}">${t}</span>`).join('');
+    const ingHtml = r.ingredients.map(ing => `
+      <div class="recipe-ingredient">
+        <span class="ing-name">${ing.name}</span>
+        <span class="ing-amount">${ing.amount}</span>
+      </div>`).join('');
+    const stepHtml = r.steps.map(s => `<li class="recipe-step">${s}</li>`).join('');
+    const noteHtml = r.note ? `<div class="recipe-note-box">💡 ${r.note}</div>` : '';
+    return `
+    <div class="recipe-card" data-cat="${r.cat}">
+      <div class="recipe-header" onclick="toggleRecipe(this)">
+        <div class="recipe-emoji">${r.emoji}</div>
+        <div class="recipe-info">
+          <div class="recipe-name">${r.name}</div>
+          <div class="recipe-meta">${r.time}</div>
+          <div class="recipe-tags">
+            <span class="recipe-tag cat-${r.cat}">${r.cat}</span>
+            ${tagHtml}
+          </div>
+        </div>
+        <div class="recipe-toggle">▼</div>
+      </div>
+      <div class="recipe-body">
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.5;margin-top:10px;">${r.desc}</div>
+        <div class="recipe-section-label">Ingredients</div>
+        <div class="recipe-ingredients">${ingHtml}</div>
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">${stepHtml}</ol>
+        ${noteHtml}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleRecipe(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.recipe-toggle');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+
+  // Load saved goal values
+  document.querySelectorAll('.goal-val[data-key], .goal-pr[data-key]').forEach(el => {
+    const val = load(el.dataset.key);
+    if (val) el.textContent = val;
+  });
+
   renderExercises('preseason-mon-exercises', PRESEASON_MON_EX, 'pre_mon');
   renderExercises('preseason-thu-exercises', PRESEASON_THU_EX, 'pre_thu');
   renderExercises('p1-mon-exercises', P1_MON_EX, 'p1_mon');
@@ -1327,6 +3079,7 @@ function init() {
 
   buildChecklist();
   loadWeekData('preseason');
+  renderRecipes();
 }
 
 init();
